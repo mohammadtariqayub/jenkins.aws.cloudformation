@@ -1,6 +1,6 @@
 pipeline {
-    agent any
-    node (params.slave) {
+    agent {label 'slave'}
+    
     stages{
         stage('List'){
             steps {
@@ -9,5 +9,4 @@ pipeline {
             }
         }
    }
-  }
 }
