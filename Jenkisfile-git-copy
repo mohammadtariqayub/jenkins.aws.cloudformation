@@ -16,7 +16,7 @@ pipeline {
         stage('ec2-deploy'){
             steps {
 #                sh '/root/.local/lib/aws/bin/aws s3 ls ${params.BucketName}'
-                echo '${params.BucketName}'
+                sh 'echo ${params.BucketName}'
             }
         }
     }
