@@ -31,7 +31,8 @@ pipeline {
                 ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageId,ParameterValue=${params.ImageId} \
                 ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS} \
                 ParameterKey=AWSAccountSSMParameter,ParameterValue=${params.AWSAccountSSMParameter} \
-                ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN}" 
+                ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN} \
+                ParameterKey=AccountAlias,ParameterValue=${params.AccountAlias}" 
         
                 archiveArtifacts artifacts: '*'
             }
