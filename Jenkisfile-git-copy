@@ -1,0 +1,17 @@
+pipeline {
+    agent { label 'slave' }
+
+    stages{
+        stage('template copy'){
+            steps {
+                git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
+                sh "cp single_instance_tariq.yaml /tmp/single_instance_tariq.yaml"
+            }
+        }
+        stage('ec2-deploy'){
+            steps {
+                sh '/root/.local/lib/aws/bin/aws s3 ls'
+            }
+        }
+   }
+}
