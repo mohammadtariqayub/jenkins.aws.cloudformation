@@ -30,9 +30,9 @@ Parameters:
   AWSAccountSSMParameter:
     Type: "AWS::SSM::Parameter::Value<String>"
     Description:  Leave as default.! SSM parameter name that has Account alias value.
-    Default: AccountAlias
+    Default: aws-disrd-poc
     AllowedValues:
-      - AccountAlias
+      - aws-disrd-poc
     
   SNSTopicARN:
     Type: String

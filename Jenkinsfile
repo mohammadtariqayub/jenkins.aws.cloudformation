@@ -8,7 +8,7 @@ pipeline {
         string(defaultValue: "amzon", description: 'Enter OS', name: 'OS')
         string(defaultValue: "amapocmoh-4", description: 'Enter OS', name: 'HostName')
         string(defaultValue: "arn:aws:sns:ap-southeast-2:820636345429:mohammad-ping-poc-topic", description: 'Enter OS', name: 'SNSTopicARN')
-        string(defaultValue: "AccountAlias", description: 'Leave as default.! SSM parameter name that has Account alias value.', name: 'AWSAccountSSMParameter')
+        string(defaultValue: "aws-disrd-poc", description: 'Leave as default.! SSM parameter name that has Account alias value.', name: 'AWSAccountSSMParameter')
         string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
     }
     stages{
