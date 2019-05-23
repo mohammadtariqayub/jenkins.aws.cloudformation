@@ -1,14 +1,21 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Deploy single instance of Amazon linux using Jenkins"
 
+Parameters: 
+  ImageId: 
+    Type: AWS::EC2::Image::Id
+    Description: AMI ID
+  SubnetId: 
+    Type: AWS::EC2::Subnet::Id
+    Description: Subnet ID
+
 Resources:
   MyEC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      AvailabilityZone: ap-southeast-2a
-      ImageId: ami-0fb7513bcdc525c3b
+      ImageId: !Ref ImageId
       InstanceType: t2.micro
-      SubnetId: subnet-01feb998410bd39b3
+      SubnetId: !Ref SubnetId
       SecurityGroupIds:
        - sg-0accba28318e4819c
       KeyName: DOI-POC-MOHAMMAD-ACCESS-KEY
