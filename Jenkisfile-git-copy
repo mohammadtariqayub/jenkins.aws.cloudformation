@@ -8,11 +8,23 @@ pipeline {
                 sh "cp single_instance_tariq.yaml /root/jenkins.aws.templates/single_instance_tariq.yaml"
             }
         }
-        stage('ec2-deploy'){
-            steps {
-              sh '/root/.local/lib/aws/bin/aws s3 ls'
-              archiveArtifacts artifacts: '*'
+        stage('Build ec2') {
+            steps {   
+                script{
+                    dir('ec2'){ 
+                        build( 
+                            job: 'Build ec2',
+                            parameters:
+                            [string(name: 'SubnetId', value: "${params.SubnetId}"),
+                            string(name: 'BucketName', value: "${params.BucketName}"),
+                            string(name: 'ImageId', value: "${params.ImageId}")]
+                            ]
+                        sh '/root/.local/lib/aws/bin/aws s3 ls s3://${params.BucketName}'    
+                        )
+                    }
+                }
+                
             }
         }
-   }
+    }
 }
