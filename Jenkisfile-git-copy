@@ -15,7 +15,7 @@ pipeline {
         }
         stage('ec2-deploy'){
             steps {
-                echo "Bucket Name: ${params.BucketName}'
+                echo "Bucket Name: ${params.BucketName}"
             }
         }
     }
