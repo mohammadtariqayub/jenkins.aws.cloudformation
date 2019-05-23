@@ -27,13 +27,6 @@ Parameters:
     Description: Enter OS
     Default: ""
   
-  AWSAccountSSMParameter:
-    Type: "AWS::SSM::Parameter::Value<String>"
-    Description:  Leave as default.! SSM parameter name that has Account alias value.
-    Default: aws-disrd-poc
-    AllowedValues:
-      - aws-disrd-poc
-    
   SNSTopicARN:
     Type: String
     Description: Enter the SNS Topic ARN to subscribe to
