@@ -60,13 +60,13 @@ Resources:
           Key: OS
           Value: !Ref OS
 
-    Instance1DiskAlarmHigh:
+  Instance1DiskAlarmHigh:
     Type: "AWS::CloudWatch::Alarm"
     DependsOn : MyEC2Instance
     Properties:
       AlarmName:
         !Join
-          - " "
+          - ""
           - - !Ref HostName
             - " "
             - " Low Disk Availability"
