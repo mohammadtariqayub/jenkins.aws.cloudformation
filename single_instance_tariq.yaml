@@ -76,7 +76,6 @@ Resources:
           - ""
           - - !Ref HostName
             - " "
-            - !Ref AWSAccountSSMParameter
             - " Low Disk Availability"
       AlarmDescription: "Alarm if available disk space on C: is less than 15% for 5 minutes"
       MetricName: "FreeDiskPct C:"
@@ -86,7 +85,7 @@ Resources:
       Period: 60
       AlarmActions:
         - !Ref SNSTopicARN
-      Namespace: "Windows/Default"
+      Namespace: "AWS/EC2"
       Dimensions:
         - Name: "InstanceId"
           Value: !Ref MyEC2Instance
@@ -100,7 +99,6 @@ Resources:
           - ""
           - - !Ref HostName
             - " "
-            - !Ref AWSAccountSSMParameter
             - " High CPU Utilization"
       AlarmDescription: "Alarm if CPU is above 90% for 5 minutes"
       EvaluationPeriods: "5"
@@ -124,7 +122,6 @@ Resources:
           - ""
           - - !Ref HostName
             - " "
-            - !Ref AWSAccountSSMParameter
             - " High Memory Utilization"
       AlarmDescription: "Alarm if Memory Available is less than 500MB for 25 minutes"
       MetricName: Memory
@@ -134,7 +131,7 @@ Resources:
       Threshold: 500
       AlarmActions:
         - !Ref SNSTopicARN
-      Namespace: "Windows/Default"
+      Namespace: "AWS/EC2"
       Dimensions:
         - Name: "InstanceId"
           Value: !Ref MyEC2Instance
