@@ -23,11 +23,10 @@ pipeline {
         }
         stage('ec2-deploy'){
             steps {
-                sh "/root/.local/lib/aws/bin/aws s3 ls ${params.BucketName}"
                 sh "/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name deploy-moh-cli-test-amapoc-moh-private-web-3\
                 --template-body file:///root/jenkins.aws.templates/single_instance_tariq.yaml --parameters\
                 ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageId,ParameterValue=${params.ImageId} \
-                --tags Key=SystemOwner,Value=${params.SystemOwner} Key=OS,Value=${params.OS}"
+                ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS}"
             }
         }
     }
