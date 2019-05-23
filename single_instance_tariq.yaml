@@ -66,7 +66,7 @@ Resources:
     Properties:
       AlarmName:
         !Join
-          - ""
+          - " "
           - - !Ref HostName
             - " "
             - " Low Disk Availability"
