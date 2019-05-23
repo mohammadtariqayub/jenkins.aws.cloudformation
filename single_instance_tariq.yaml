@@ -2,12 +2,24 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: "Deploy single instance of Amazon linux using Jenkins"
 
 Parameters: 
+
   ImageId: 
     Type: AWS::EC2::Image::Id
     Description: AMI ID
+
   SubnetId: 
     Type: AWS::EC2::Subnet::Id
     Description: Subnet ID
+
+  SystemOwner:
+    Type: String
+    Description: Emails address of technical point of contact for the server.
+    Default: ""
+  
+  OS:
+    Type: String
+    Description: Enter OS
+    Default: ""
 
 Resources:
   MyEC2Instance:
@@ -29,3 +41,9 @@ Resources:
         -
           Key: Name
           Value:  amapoc-moh-private-web-3
+        -
+          Key: SystemOwner
+          Value: !Ref SystemOwner
+        -
+          Key: OS
+          Value: !Ref OS
