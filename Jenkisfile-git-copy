@@ -15,7 +15,7 @@ pipeline {
         }
         stage('ec2-deploy'){
             steps {
-                sh '/root/.local/lib/aws/bin/aws aws s3 ls s3://${params.BucketName}'
+                sh '/root/.local/lib/aws/bin/aws aws s3 ls s3://"${params.BucketName}"'
             }
         }
     }
