@@ -2,8 +2,8 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: VDC Centos 7 + helper scripts
 Parameters:
   ImageId:
+    Type: AWS::EC2::Image::Id
     Description: Instance AMI
-    Type: String
   InstanceProfile:
     Description: Default instance profile
     Type: String
@@ -70,7 +70,6 @@ Parameters:
   SecurityGroupIds:
     Description: Choose the default platform security group
     Type: AWS::EC2::SecurityGroup::Id
-    ConstraintDescription: Must be default Linux security group
   SubnetId:
     Type: AWS::EC2::Subnet::Id
     Description: Enter the SubnetId of the subnet

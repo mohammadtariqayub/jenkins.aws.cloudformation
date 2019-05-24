@@ -31,9 +31,9 @@ pipeline {
             steps {
                 sh "/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name ${params.StackName}\
                 --template-body file:///root/jenkins.aws.templates/single_instance_linux.yaml --parameters\
-                ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=InstanceAmi,ParameterValue=${params.ImageId} \
+                ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageId,ParameterValue=${params.ImageId} \
                 ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS} \
-                ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=LinuxSecurityGroup,ParameterValue=${params.SecurityGroupIds} \
+                ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SecurityGroupIds,ParameterValue=${params.SecurityGroupIds} \
                 ParameterKey=InstanceType,ParameterValue=${params.InstanceType} ParameterKey=InstanceProfile,ParameterValue=${params.InstanceProfile} \
                 ParameterKey=KeyName,ParameterValue=${params.KeyName}" 
         
