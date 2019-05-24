@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: VDC Centos 7 + helper scripts
 Parameters:
-  InstanceAmi:
+  ImageId:
     Description: Instance AMI
     Type: String
   InstanceProfile:
@@ -67,7 +67,7 @@ Parameters:
       - r5.12xlarge
       - r5.24xlarge
     ConstraintDescription: must be a valid EC2 instance type.
-  LinuxSecurityGroup:
+  SecurityGroupIds:
     Description: Choose the default platform security group
     Type: AWS::EC2::SecurityGroup::Id
     ConstraintDescription: Must be default Linux security group
@@ -77,119 +77,36 @@ Parameters:
     ConstraintDescription: Must be a valid Subnet ID
 
 Resources:
-  EC2Instance:
-    Type: AWS::EC2::Instance
-    CreationPolicy:
-      ResourceSignal:
-        Timeout: PT7M
-        Count: '1'
-    Metadata:
-      AWS::CloudFormation::Init:
-        configSets:
-          full_install:
-          - install_and_enable_cfn_hup
-        install_and_enable_cfn_hup:
-          files:
-            "/etc/cfn/cfn-hup.conf":
-              content:
-                Fn::Join:
-                - ""
-                - - "[main]\n"
-                  - stack=
-                  - Ref: AWS::StackId
-                  - "\n"
-                  - region=
-                  - Ref: AWS::Region
-                  - "\n"
-              mode: '000400'
-              owner: root
-              group: root
-            "/etc/cfn/hooks.d/cfn-auto-reloader.conf":
-              content:
-                Fn::Join:
-                - ""
-                - - "[cfn-auto-reloader-hook]\n"
-                  - "triggers=post.update\n"
-                  - "path=Resources.EC2Instance.Metadata.AWS::CloudFormation::Init\n"
-                  - "action=/opt/aws/bin/cfn-init -v "
-                  - " --stack "
-                  - Ref: AWS::StackName
-                  - " --resource EC2Instance "
-                  - " --configsets full_install "
-                  - " --region "
-                  - Ref: AWS::Region
-                  - "\n"
-                  - "runas=root\n"
-            #"/lib/systemd/system/cfn-hup.service":
-            #  content:
-            #    Fn::Join:
-            #    - ""
-            #    - - "[Unit]\n"
-            #      - "Description=cfn-hup daemon\n\n"
-            #      - "[Service]\n"
-            #      - "Type=simple\n"
-            #      - "ExecStart=/opt/aws/bin/cfn-hup\n"
-            #      - "Restart=always\n\n"
-            #      - "[Install]\n"
-            #      - "WantedBy=multi-user.target\n"
-
-          commands:
-            01enable_cfn_hup:
-              command: systemctl enable cfn-hup.service
-            02start_cfn_hup:
-              command: systemctl start cfn-hup.service
-
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
     Properties:
-      InstanceType:
-        Ref: InstanceType
-      SecurityGroupIds:
-        - !Ref LinuxSecurityGroup
-      KeyName:
-        Ref: KeyName
-      IamInstanceProfile: !Ref InstanceProfile
-      ImageId: !Ref InstanceAmi
-      BlockDeviceMappings:
-        - DeviceName: '/dev/sda1'
-          Ebs:
-            VolumeType: 'gp2'
-            DeleteOnTermination: 'true'
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
       SubnetId: !Ref SubnetId
-      UserData:
-        Fn::Base64:
-          Fn::Join:
-            - ""
-            - - "#!/bin/bash -xe\n"
-              - "yum update -y\n"
-              #- "yum install -y epel-release\n"
-              #- "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n"
-              #- "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n"
-              - "/opt/aws/bin/cfn-init -v "
-              - "--stack "
-              - Ref: AWS::StackName
-              - " --resource EC2Instance "
-              - "--configsets full_install "
-              - "--region "
-              - Ref: AWS::Region
-              - "\n"
-              - "/opt/aws/bin/cfn-signal -e $? "
-              - " --stack "
-              - Ref: AWS::StackName
-              - " --resource EC2Instance "
-              - " --region "
-              - Ref: AWS::Region
-              - "\n"
+      SecurityGroupIds:
+       - !Ref SecurityGroupIds
+      KeyName: !Ref KeyName
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 10
+            VolumeType: gp2
       Tags:
-        - Key: Name
+        -
+          Key: Name
           Value:  !Ref HostName
-        - Key: SystemOwner
+        -
+          Key: SystemOwner
           Value: !Ref SystemOwner
-        - Key: OS
+        -
+          Key: OS
           Value: !Ref OS
 
 Outputs:
   EC2InstanceId:
     Description: Instance ID
-    Value: !Ref EC2Instance
+    Value: !Ref MyEC2Instance
   EC2InstancePrivateIp:
     Description: Instance Private IP address
-    Value: !GetAtt EC2Instance.PrivateIp
+    Value: !GetAtt MyEC2Instance.PrivateIp
