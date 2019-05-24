@@ -47,7 +47,7 @@ Resources:
         -
           DeviceName: "/dev/xvda"
           Ebs:
-            VolumeSize: 8
+            VolumeSize: 30
             VolumeType: gp2
       Tags:
         -

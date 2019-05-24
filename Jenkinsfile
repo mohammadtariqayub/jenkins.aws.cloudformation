@@ -4,9 +4,9 @@ pipeline {
     parameters {
         string(defaultValue: "deploy-moh-cli-test-amapoc-moh-private-web-3", description: 'Enter Stack Name', name: 'StackName')
         string(defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', name: 'SubnetId')
-        string(defaultValue: "ami-0fb7513bcdc525c3b", description: 'Enter Image ID', name: 'ImageId')
+        string(defaultValue: "ami-0628ef1f10e34307d", description: 'Enter Image ID', name: 'ImageId')
         string(defaultValue: "mohammad.ayub@industry.nsw.gov.au", description: 'Enter System Owners email address', name: 'SystemOwner')
-        string(defaultValue: "amzon", description: 'Enter OS', name: 'OS')
+        string(defaultValue: "windows", description: 'Enter OS', name: 'OS')
         string(defaultValue: "amapocmoh-4", description: 'Enter OS', name: 'HostName')
         string(defaultValue: "arn:aws:sns:ap-southeast-2:820636345429:mohammad-ping-poc-topic", description: 'Enter OS', name: 'SNSTopicARN')
         string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
