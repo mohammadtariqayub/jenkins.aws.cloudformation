@@ -166,6 +166,16 @@ Resources:
               - " --region "
               - Ref: AWS::Region
               - "\n"
+      Tags:
+        -
+          Key: Name
+          Value:  amapoc-moh-private-web-3
+        -
+          Key: SystemOwner
+          Value: !Ref SystemOwner
+        -
+          Key: OS
+          Value: !Ref OS        
 
 Outputs:
   EC2InstanceId:
