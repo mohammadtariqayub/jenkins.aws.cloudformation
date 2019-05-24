@@ -4,6 +4,7 @@ Parameters:
   InstanceAmi:
     Description: Instance AMI
     Type: String
+
   InstanceProfile:
     Description: Default instance profile
     Type: String
@@ -11,9 +12,11 @@ Parameters:
     ConstraintDescription: Must be BTSManagedInstanceProfile
     AllowedValues:
       - BTSManagedInstanceProfile
+
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: AWS::EC2::KeyPair::KeyName
+
   InstanceType:
     Description: EC2 instance types
     Type: String
@@ -55,14 +58,32 @@ Parameters:
       - r5.12xlarge
       - r5.24xlarge
     ConstraintDescription: must be a valid EC2 instance type.
+
   LinuxSecurityGroup:
     Description: Choose the default platform security group
     Type: AWS::EC2::SecurityGroup::Id
     ConstraintDescription: Must be default Linux security group
+
   SubnetId:
     Type: AWS::EC2::Subnet::Id
     Description: Enter the SubnetId of the subnet
     ConstraintDescription: Must be a valid Subnet ID
+    
+  SystemOwner:
+    Type: String
+    Description: Emails address of technical point of contact for the server.
+    Default: ""
+  
+  OS:
+    Type: String
+    Description: Enter OS
+    Default: ""
+  
+  HostName:
+    Type: String
+    MaxLength: 15
+    Default: amapocmoh-4
+    Description: Name of the host
 
 Resources:
   EC2Instance:
@@ -132,8 +153,7 @@ Resources:
         Ref: InstanceType
       SecurityGroupIds:
         - !Ref LinuxSecurityGroup
-      KeyName:
-        Ref: KeyName
+      KeyName: !Ref KeyName
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceAmi
       BlockDeviceMappings:
@@ -142,6 +162,7 @@ Resources:
             VolumeType: 'gp2'
             DeleteOnTermination: 'true'
       SubnetId: !Ref SubnetId
+      Monitoring: 'true'
       UserData:
         Fn::Base64:
           Fn::Join:
@@ -167,16 +188,13 @@ Resources:
               - Ref: AWS::Region
               - "\n"
       Tags:
-        -
-          Key: Name
-          Value:  amapoc-moh-private-web-3
-        -
-          Key: SystemOwner
+        - Key: Name
+          Value:  !Ref
+        - Key: SystemOwner
           Value: !Ref SystemOwner
-        -
-          Key: OS
-          Value: !Ref OS        
-
+        - Key: OS
+          Value: !Ref OS   
+        
 Outputs:
   EC2InstanceId:
     Description: Instance ID

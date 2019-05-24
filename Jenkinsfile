@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(defaultValue: "deploy-moh-cli-test-amapoc-moh-private-web-4", description: 'Enter Stack Name', name: 'StackName')
-        string(defaultValue: "amapocmoh-5", description: 'Enter OS', name: 'HostName')
+        string(defaultValue: "amapocmoh-5", description: 'Enter Host Name', name: 'HostName')
         string(defaultValue: "rhel", description: 'Enter OS', name: 'OS')
         string(defaultValue: "ami-0d13543d534a74a43", description: 'Enter Image ID', name: 'InstanceAmi')
         string(defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', name: 'SubnetId')
