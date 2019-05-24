@@ -166,9 +166,9 @@ Resources:
             - ""
             - - "#!/bin/bash -xe\n"
               - "yum update -y\n"
-              #- "yum install -y epel-release\n"
-              #- "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n"
-              #- "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n"
+              - "yum install -y epel-release\n"
+              - "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n"
+              - "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n"
               - "/opt/aws/bin/cfn-init -v "
               - "--stack "
               - Ref: AWS::StackName
