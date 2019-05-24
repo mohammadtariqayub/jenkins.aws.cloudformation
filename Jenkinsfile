@@ -27,7 +27,7 @@ pipeline {
         stage('ec2-deploy'){
             steps {
                 sh "/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name ${params.StackName}\
-                --template-body file:///root/jenkins.aws.templates/single_instance_tariq.yaml --parameters\
+                --template-body file:///root/jenkins.aws.templates/single_instance_windows.yaml --parameters\
                 ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageId,ParameterValue=${params.ImageId} \
                 ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS} \
                 ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN}" 
