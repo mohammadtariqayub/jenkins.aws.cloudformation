@@ -158,7 +158,7 @@ Resources:
         -
           DeviceName: "/dev/sda1"
           Ebs:
-            VolumeSize: 10
+            VolumeSize: 40
             VolumeType: gp2
       UserData:
         Fn::Base64:
