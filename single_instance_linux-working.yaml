@@ -1,9 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: VDC Centos 7 + helper scripts
 Parameters:
-  InstanceAmi:
+
+  ImageId:
+    Type: AWS::EC2::Image::Id
     Description: Instance AMI
-    Type: String
+
   InstanceProfile:
     Description: Default instance profile
     Type: String
@@ -11,21 +13,26 @@ Parameters:
     ConstraintDescription: Must be BTSManagedInstanceProfile
     AllowedValues:
       - BTSManagedInstanceProfile
+
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: AWS::EC2::KeyPair::KeyName
+
   HostName:
     Type: String
     MaxLength: 15
     Default: amapocmoh-4
     Description: Name of the host
+
   SystemOwner:
     Type: String
     Description: Emails address of technical point of contact for the server.
     Default: ""
+
   OS:
     Type: String
     Description: Enter OS
+
   InstanceType:
     Description: EC2 instance types
     Type: String
@@ -67,18 +74,19 @@ Parameters:
       - r5.12xlarge
       - r5.24xlarge
     ConstraintDescription: must be a valid EC2 instance type.
-  LinuxSecurityGroup:
+
+  SecurityGroupIds:
     Description: Choose the default platform security group
     Type: AWS::EC2::SecurityGroup::Id
-    ConstraintDescription: Must be default Linux security group
+
   SubnetId:
     Type: AWS::EC2::Subnet::Id
     Description: Enter the SubnetId of the subnet
     ConstraintDescription: Must be a valid Subnet ID
 
 Resources:
-  EC2Instance:
-    Type: AWS::EC2::Instance
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
     CreationPolicy:
       ResourceSignal:
         Timeout: PT7M
@@ -138,30 +146,29 @@ Resources:
               command: systemctl enable cfn-hup.service
             02start_cfn_hup:
               command: systemctl start cfn-hup.service
-
+              
     Properties:
+      ImageId: !Ref ImageId
       InstanceType: !Ref InstanceType
-      SecurityGroupIds:
-        - !Ref LinuxSecurityGroup
-      KeyName: !Ref KeyName
-      IamInstanceProfile: !Ref InstanceProfile
-      ImageId: !Ref InstanceAmi
-      BlockDeviceMappings:
-        - DeviceName: '/dev/sda1'
-          Ebs:
-            VolumeSize: 8
-            VolumeType: 'gp2'
-            DeleteOnTermination: 'true'
       SubnetId: !Ref SubnetId
+      SecurityGroupIds:
+       - !Ref SecurityGroupIds
+      KeyName: !Ref KeyName
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 40
+            VolumeType: gp2
       UserData:
         Fn::Base64:
           Fn::Join:
             - ""
             - - "#!/bin/bash -xe\n"
               - "yum update -y\n"
-              #- "yum install -y epel-release\n"
-              #- "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n"
-              #- "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n"
+              - "yum install -y epel-release\n"
+              - "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n"
+              - "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n"
               - "/opt/aws/bin/cfn-init -v "
               - "--stack "
               - Ref: AWS::StackName
@@ -177,18 +184,21 @@ Resources:
               - " --region "
               - Ref: AWS::Region
               - "\n"
+
       Tags:
         - Key: Name
           Value:  !Ref HostName
+
         - Key: SystemOwner
           Value: !Ref SystemOwner
+
         - Key: OS
           Value: !Ref OS
 
 Outputs:
   EC2InstanceId:
     Description: Instance ID
-    Value: !Ref EC2Instance
+    Value: !Ref MyEC2Instance
   EC2InstancePrivateIp:
     Description: Instance Private IP address
-    Value: !GetAtt EC2Instance.PrivateIp
+    Value: !GetAtt MyEC2Instance.PrivateIp
