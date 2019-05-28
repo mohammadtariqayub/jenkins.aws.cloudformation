@@ -7,7 +7,7 @@ pipeline {
         string(defaultValue: "windows", description: 'Enter OS', name: 'OS')
         string(defaultValue: "ami-0628ef1f10e34307d", description: 'Enter Image ID', name: 'ImageID')
         string(defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', name: 'SubnetId')
-        string(defaultValue: "t2.small", description: 'Enter Instance Type', name: 'InstanceType')
+        string(defaultValue: "t3.small", description: 'Enter Instance Type', name: 'InstanceType')
         string(defaultValue: "poc", description: 'Environment type. eg, prd', name: 'Environment')
         string(defaultValue: "true", description: 'Specifiy is the instance should join  Active Directory domain.', name: 'JoinDomain')
         string(defaultValue: "businesshours", description: 'A valid power schedule. eg, 247', name: 'GorillaStack')
@@ -35,7 +35,7 @@ pipeline {
         stage('ec2-deploy'){
             steps {
                 sh "/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name ${params.StackName}\
-                --template-body file:///root/jenkins.aws.templates/single_instance_windows-cutomized.yaml --parameters\
+                --template-body file:///root/jenkins.aws.templates/single_instance_windows-cutomized.yaml --parameters \
                 ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageID,ParameterValue=${params.ImageID} \
                 ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS} \
                 ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SecurityGroupId,ParameterValue=${params.SecurityGroupId} \
