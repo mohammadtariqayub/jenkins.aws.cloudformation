@@ -23,7 +23,7 @@ pipeline {
         stage('template copy'){
             steps {
                 git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
-                sh "cp single_instance_linux.yaml /root/jenkins.aws.templates/single_instance_linux.yaml"
+                sh "cp single_instance_windows-cutomized.yaml /root/jenkins.aws.templates/single_instance_windows-cutomized.yaml"
             }
         }
         stage('list s3 bucket'){
@@ -35,7 +35,7 @@ pipeline {
         stage('ec2-deploy'){
             steps {
                 sh "/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name ${params.StackName}\
-                --template-body file:///root/jenkins.aws.templates/single_instance_linux.yaml --parameters\
+                --template-body file:///root/jenkins.aws.templates/single_instance_windows-cutomized.yaml --parameters\
                 ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageID,ParameterValue=${params.ImageID} \
                 ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS} \
                 ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SecurityGroupId,ParameterValue=${params.SecurityGroupId} \
