@@ -15,6 +15,7 @@ pipeline {
         string(defaultValue: "BTSManagedInstanceProfile", description: 'BTSManagedInstanceProfile', name: 'InstanceProfile')
         string(defaultValue: "DOI-POC-MOHAMMAD-ACCESS-KEY", description: 'Enter EC2 Key', name: 'KeyPairName')
         string(defaultValue: "sg-0accba28318e4819c", description: 'Enter Security Group', name: 'SecurityGroupId')
+        string(defaultValue: "https://amaprdsymprxelb01.dpi.nsw.gov.au:8080", description: 'Proxy address.', name: 'Proxy')
         string(defaultValue: "arn:aws:sns:ap-southeast-2:820636345429:mohammad-ping-poc-topic", description: 'Enter the SNS Topic ARN to subscribe to', name: 'SNSTopicARN')
         string(defaultValue: "mohammad.ayub@industry.nsw.gov.au", description: 'Enter System Owners email address', name: 'SystemOwner')        
         string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
@@ -42,7 +43,8 @@ pipeline {
                 ParameterKey=InstanceType,ParameterValue=${params.InstanceType} ParameterKey=InstanceProfile,ParameterValue=${params.InstanceProfile} \
                 ParameterKey=KeyPairName,ParameterValue=${params.KeyPairName} ParameterKey=Environment,ParameterValue=${params.Environment} \
                 ParameterKey=AWSAccount,ParameterValue=${params.AWSAccount} ParameterKey=GorillaStack,ParameterValue=${params.GorillaStack} \
-                ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN} ParameterKey=JoinDomain,ParameterValue=${params.JoinDomain}" 
+                ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN} ParameterKey=JoinDomain,ParameterValue=${params.JoinDomain} \
+                ParameterKey=Proxy,ParameterValue=${params.Proxy}" 
         
                 archiveArtifacts artifacts: '*'
             }
