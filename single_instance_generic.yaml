@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Deploy single instance of Amazon linux using cli"
+Description: "Deploy single instance using cli"
 
 Parameters: 
 

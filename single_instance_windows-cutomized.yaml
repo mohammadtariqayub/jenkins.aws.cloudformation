@@ -10,10 +10,6 @@ Parameters:
     Type: String
     Default: amadev-moh-1
     Description: Name of the host
-  JoinDomain:
-    Type: String
-    Default: true
-    Description: Specifiy is the instance should join  Active Directory domain.
   InstanceType:
     Type: String
     Default: t3.small
@@ -33,48 +29,6 @@ Parameters:
       - m4.large
       - m4.xlarge
       - m4.2xlarge
-  BusHoursInstanceType:
-    Type: String
-    Default: t3.small
-    Description: Instance Type
-    AllowedValues:
-      - t3.micro
-      - t3.small
-      - t3.medium
-      - t3.large
-      - t3.xlarge
-      - m5.large
-      - m5.xlarge
-      - t2.micro
-      - t2.small
-      - t2.medium
-      - t2.large
-      - m4.large
-      - m4.xlarge
-      - m4.2xlarge
-  OutsideBusHoursInstanceType:
-    Type: String
-    Default: t3.small
-    Description: Instance Type
-    AllowedValues:
-      - t3.micro
-      - t3.small
-      - t3.medium
-      - t3.large
-      - t3.xlarge
-      - m5.large
-      - m5.xlarge
-      - t2.micro
-      - t2.small
-      - t2.medium
-      - t2.large
-      - m4.large
-      - m4.xlarge
-      - m4.2xlarge
-  ResizeOutOfHours:
-    Type: String
-    Description: Name of the application.
-    Default: false
   InstanceProfile:
     Type: String
     Default: bts-windows-instance-profile
@@ -83,35 +37,18 @@ Parameters:
     Type: String
     Default: sg-0accba28318e4819c
     Description: Security Group Id
-  VPCId:
-    Type: "AWS::EC2::VPC::Id"
-    Default: vpc-0da9da6feea5676db
-    Description: VPC Id
   SubnetId:
     Type: "AWS::EC2::Subnet::Id"
     Default: subnet-061b3d9a7f8b88210
     Description: Subnet Id
   KeyPairName:
     Type: String
-    Default: ""
+    Default: "DOI-POC-MOHAMMAD-ACCESS-KEY"
     Description: Name of key pair to be used
   Proxy:
     Type: String
     Description: Proxy address.
     Default: "https://amaprdsymprxelb01.dpi.nsw.gov.au:8080"
-  CostCentre:
-    Type: String
-    Description: A valid cost center number.
-    Default: XXXXX
-  Criticality:
-    Type: String
-    Description: Environment type. eg, prd
-    Default: low
-    ConstraintDescription: Valid Name
-    AllowedValues:
-      - high
-      - med
-      - low
   Environment:
     Type: String
     Description: Environment type. eg, prd
@@ -121,10 +58,6 @@ Parameters:
       - dev
       - test
       - prod
-  Application:
-    Type: String
-    Description: Name of the application.
-    Default: XXXXX
   OS:
     Type: String
     Description: Name of the operating system.
@@ -133,30 +66,6 @@ Parameters:
     Type: String
     Description: Name of the AWS Account associated with this instance
     Default: aws-disrd-poc
-  Role:
-    Type: String
-    Description: Server role. eg, app
-    Default: web
-    ConstraintDescription: Valid Name
-    AllowedValues:
-      - web
-      - app
-      - sql
-      - ad
-      - admin
-      - proxy
-      - revproxy
-      - fileserver
-      - printserver
-      - citrix
-  BusinessOwner:
-    Type: String
-    Description: Platform owner. eg, water
-    Default: dpi
-  BusinessUnit:
-    Type: String
-    Description: Platform owner. eg, water
-    Default: dpi
   SystemOwner:
     Type: String
     Description: Application system owner. eg, messaging
@@ -171,39 +80,15 @@ Parameters:
       - ondemand
       - weekendonly
       - 247
-  CFNTemplate:
-    Type: String
-    Description: CFN Template used to deploy instance
-    Default: selectone
-  AvamarBackup:
-    Type: String
-    Description: A valid avamar backup schedule.
-    Default: no-backup
-  CpmBackup:
-    Type: String
-    Description: A valid snapshots backup schedule.
-    Default: no-backup
-  Comments:
-    Type: String
-    Description: Additional Comments.
-    Default: xxxxx
-  RFC:
-    Type: String
-    Description: RFC number for build request.
-    Default: RFC-XXXXX
-  RecID:
-    Type: String
-    Description: Helpdesk Call number for build request.
-    Default: CSP-XXXXX
-  OULocation:
-    Type: String
-    Description: The location of the Active Directory OU that the machines will be assigned under.
-    Default: '''ou=Servers,ou=Host-Ops,dc=dpi,dc=nsw,dc=gov,dc=au'''
   SNSTopicARN:
     Type: String
     Description: Enter the SNS Topic ARN to subscribe to
     Default: "arn:aws:sns:ap-southeast-2:820636345429:mohammad-ping-poc-topic"
     ConstraintDescription: Must be a valid SNS Topic ARN
+  JoinDomain:
+    Type: String
+    Default: true
+    Description: Specifiy is the instance should join  Active Directory domain.
 Conditions:
   DomainJoinCondition: !Equals [!Ref JoinDomain , true]
 Resources:
@@ -331,44 +216,17 @@ Resources:
           Key: Name
           Value:  !Ref HostName
         -
-          Key: CostCentre
-          Value: !Ref CostCentre
-        -
           Key: Environment
           Value: !Ref Environment
         -
-          Key: Application
-          Value:  !Ref Application
-        -
-          Key: AvamarBackup
-          Value:  !Ref AvamarBackup
-        -
-          Key: BusHoursInstanceType
-          Value:  !Ref BusHoursInstanceType
-        -
-          Key: BusHoursInstanceType
-          Value:  !Ref BusHoursInstanceType
-        -
-          Key: OutsideBusHoursInstanceType
-          Value:  !Ref OutsideBusHoursInstanceType
-        -
           Key: OS
           Value: !Ref OS
-        -
-          Key: Role
-          Value: !Ref Role
-        -
-          Key: BusinessOwner
-          Value:  !Ref BusinessOwner
         -
           Key: SystemOwner
           Value: !Ref SystemOwner
         -
           Key: GorillaStack
           Value: !Ref GorillaStack
-        -
-          Key: cpm backup
-          Value: !Ref CpmBackup
         -
           Key: AWSAccount
           Value: !Ref AWSAccount
