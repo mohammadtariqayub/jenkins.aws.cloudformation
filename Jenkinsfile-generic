@@ -4,6 +4,7 @@ pipeline {
     parameters {
         string(defaultValue: "deploy-moh-cli-test-amapoc-moh-private-web-3", description: 'Enter Stack Name', name: 'StackName')
         string(defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', name: 'SubnetId')
+        string(defaultValue: "sg-0accba28318e4819c", description: 'Enter Security Group', name: 'SecurityGroupIds')
         string(defaultValue: "ami-0628ef1f10e34307d", description: 'Enter Image ID', name: 'ImageId')
         string(defaultValue: "mohammad.ayub@industry.nsw.gov.au", description: 'Enter System Owners email address', name: 'SystemOwner')
         string(defaultValue: "windows", description: 'Enter OS', name: 'OS')
@@ -30,7 +31,8 @@ pipeline {
                 --template-body file:///root/jenkins.aws.templates/single_instance_generic.yaml --parameters\
                 ParameterKey=SubnetId,ParameterValue=${params.SubnetId} ParameterKey=ImageId,ParameterValue=${params.ImageId} \
                 ParameterKey=SystemOwner,ParameterValue=${params.SystemOwner} ParameterKey=OS,ParameterValue=${params.OS} \
-                ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN}" 
+                ParameterKey=HostName,ParameterValue=${params.HostName} ParameterKey=SNSTopicARN,ParameterValue=${params.SNSTopicARN} \
+                ParameterKey=SecurityGroupIds,ParameterValue=${params.SecurityGroupIds}" 
         
                 archiveArtifacts artifacts: '*'
             }

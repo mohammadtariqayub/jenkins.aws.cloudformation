@@ -41,7 +41,7 @@ Resources:
       InstanceType: t2.micro
       SubnetId: !Ref SubnetId
       SecurityGroupIds:
-       - sg-0accba28318e4819c
+       - !Ref SecurityGroupIds
       KeyName: DOI-POC-MOHAMMAD-ACCESS-KEY
       BlockDeviceMappings:
         -
