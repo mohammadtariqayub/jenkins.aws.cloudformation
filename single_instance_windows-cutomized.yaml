@@ -191,7 +191,6 @@ Resources:
     Properties:
       ImageId: !Ref ImageID
       InstanceType: !Ref InstanceType
-      DisableApiTermination : true
       KeyName: !Ref KeyPairName
       IamInstanceProfile:
         !Ref InstanceProfile
