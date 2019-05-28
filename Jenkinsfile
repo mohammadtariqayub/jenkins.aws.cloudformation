@@ -8,7 +8,7 @@ pipeline {
         string(defaultValue: "ami-0628ef1f10e34307d", description: 'Enter Image ID', name: 'ImageID')
         string(defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', name: 'SubnetId')
         string(defaultValue: "t3.small", description: 'Enter Instance Type', name: 'InstanceType')
-        string(defaultValue: "poc", description: 'Environment type. eg, prd', name: 'Environment')
+        string(defaultValue: "test", description: 'Environment type. eg, prd', name: 'Environment')
         string(defaultValue: "true", description: 'Specifiy is the instance should join  Active Directory domain.', name: 'JoinDomain')
         string(defaultValue: "businesshours", description: 'A valid power schedule. eg, 247', name: 'GorillaStack')
         string(defaultValue: "aws-disrd-poc", description: 'Name of the AWS Account associated with this instance', name: 'AWSAccount')
