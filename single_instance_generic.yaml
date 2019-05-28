@@ -16,6 +16,10 @@ Parameters:
   SubnetId: 
     Type: AWS::EC2::Subnet::Id
     Description: Subnet ID
+  
+  SecurityGroupIds:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Choose the default platform security group
 
   SystemOwner:
     Type: String
