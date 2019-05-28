@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Deploy single instance of Windows Server cli"
+Description: "Deploy single instance of Windows Server 2019"
 
 Parameters:
   ImageID:
