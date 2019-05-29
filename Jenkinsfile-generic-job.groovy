@@ -20,7 +20,7 @@ pipeline {
             }
         }
         stage('ec2 creation'){
-        echo "Deploying ec2 to POC VPC"
+        echo "Deploying ec2 to POC VPC",
         build job: 'AWSEc2-windows-creation-CD',
               parameters: [
                 string(name: 'StackName', defaultValue: "deploy-moh-cli-test-amapoc-moh-private-web-3", description: 'Enter Stack Name', value: params['StackName']),
