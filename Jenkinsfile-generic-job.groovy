@@ -10,7 +10,7 @@ pipeline {
         stage('template copy'){
             steps {
                 git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
-                sh "cp single_instance_tariq.yaml /root/jenkins.aws.templates/single_instance_tariq.yaml"
+                sh "cp Jenkinsfile-windows.groovy /root/jenkins.aws.templates/Jenkinsfile-windows.groovy"
             }
         }
         stage('list s3 bucket'){
