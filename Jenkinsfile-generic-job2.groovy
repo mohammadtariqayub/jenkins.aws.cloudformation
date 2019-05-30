@@ -23,7 +23,7 @@ pipeline {
     }
         stage ('vpc_creation') {
         echo "Deploying VPC toDeploying ec2 to POC VPC " 
-        build job{ 'AWSEc2-windows-creation-CD',
+        build job {'AWSEc2-windows-creation-CD',
           parameters: [
             string(name: 'AWSAccountNumber', value: params['AWSAccountNumber']),
             string(name: 'Environment', value: params['Environment']),
@@ -42,6 +42,6 @@ pipeline {
             booleanParam(name: 'CreateIGWFlag', value: params['CreateIGWFlag'])
           ]
         }
-  }
+        }
     }
 }
