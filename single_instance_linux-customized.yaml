@@ -149,7 +149,6 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceAmi
       DisableApiTermination: true
-      IamInstanceProfile: BTSManagedInstanceRole
       BlockDeviceMappings:
         - DeviceName: '/dev/sda1'
           Ebs:
