@@ -25,21 +25,15 @@ pipeline {
         echo "Deploying VPC toDeploying ec2 to POC VPC " 
         build job {'AWSEc2-windows-creation-CD',
           parameters: [
-            string(name: 'AWSAccountNumber', value: params['AWSAccountNumber']),
-            string(name: 'Environment', value: params['Environment']),
-            string(name: 'BusinessOwner', value: params['BusinessOwner']),
-            string(name: 'VPCCidr', value: params['VPCCidr']),
-            string(name: 'VPCPurpose', value: params['VPCPurpose']),
-            string(name: 'VPCName', value: params['VPCName']),
-            string(name: 'CidrWebSubnetA', value: params['CidrWebSubnetA']),
-            string(name: 'CidrWebSubnetB', value: params['CidrWebSubnetB']),
-            string(name: 'CidrWebSubnetC', value: params['CidrWebSubnetC']),
-            string(name: 'CidrPrivateSubnetA', value: params['CidrPrivateSubnetA']),
-            string(name: 'CidrPrivateSubnetB', value: params['CidrPrivateSubnetB']),
-            string(name: 'CidrPrivateSubnetC', value: params['CidrPrivateSubnetC']),
-            string(name: 'DHCPOptionsDomainName', value: params['DHCPOptionsDomainName']),
-            string(name: 'DHCPOptionsDomainNameServers', value: params['DHCPOptionsDomainNameServers']),
-            booleanParam(name: 'CreateIGWFlag', value: params['CreateIGWFlag'])
+            string(name: 'StackName', defaultValue: "deploy-moh-cli-test-amapoc-moh-private-web-3", description: 'Enter Stack Name', value: params['StackName']),
+            string(name: 'SubnetId', defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', value: params['SubnetId']),
+            string(name: 'SecurityGroupIds', defaultValue: "sg-0accba28318e4819c", description: 'Enter Security Group', value: params['SecurityGroupIds']),
+            string(name: 'ImageId', defaultValue: "ami-0628ef1f10e34307d", description: 'Enter Image ID', value: params['ImageId']),
+            string(name: 'SystemOwner', defaultValue: "mohammad.ayub@industry.nsw.gov.au", description: 'Enter System Owners email address', value: params['SystemOwner']),
+            string(name: 'OS', defaultValue: "windows", description: 'Enter OS', value: params['SubnetId']),
+            string(name: 'HostName', defaultValue: "amapocmoh-4", description: 'Enter Host Name', value: params['HostName']),
+            string(name: 'SNSTopicARN', defaultValue: "arn:aws:sns:ap-southeast-2:820636345429:mohammad-ping-poc-topic", description: 'Enter SNS Topics', value: params['SNSTopicARN']),
+            string(name: 'BucketName', defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', value: params['BucketName'])
           ]
         }
         }
