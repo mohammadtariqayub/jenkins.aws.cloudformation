@@ -120,12 +120,24 @@ Resources:
                   - "Restart=always\n\n"
                   - "[Install]\n"
                   - "WantedBy=multi-user.target\n"
+            /root/soft/bootstrap_script1.sh:
+              content:
+                Fn::Join:
+                - ""
+                - - "!/usr/bin/bash\n"
+                  - "mkdir -p /root/soft\n"
+                  - "cd /root/soft\n"
+                  - "/usr/bin/aws s3 cp s3://aws-disrd-dev-cloudformation-scripts . --recursive\n"
+                  - "ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime\n"
+                  - "\n"
 
           commands:
             01-enable_cfn_hup:
               command: systemctl enable cfn-hup.service
             02-start_cfn_hup:
               command: systemctl start cfn-hup.service
+            03-run_bootstrip:
+              command: "/usr/bin/bash /root/soft/bootstrap_script1.sh"
 
     Properties:
       InstanceType:
@@ -136,7 +148,8 @@ Resources:
         Ref: KeyName
       IamInstanceProfile: !Ref InstanceProfile
       ImageId: !Ref InstanceAmi
-      DisableApiTermination : true
+      DisableApiTermination: true
+      IamInstanceProfile: BTSManagedInstanceRole
       BlockDeviceMappings:
         - DeviceName: '/dev/sda1'
           Ebs:
@@ -152,6 +165,8 @@ Resources:
               - "rpm -ih https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm\n"
               - "yum install -y https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.amzn1.noarch.rpm\n"
               - "ln -s /usr/local/lib/python2.7/site-packages/cfnbootstrap /usr/lib/python2.7/site-packages/cfnbootstrap\n"
+              - "yum -y install python-pip\n"
+              - "pip install awscli\n"
               - "/opt/aws/bin/cfn-init -v "
               - "--stack "
               - Ref: AWS::StackName
