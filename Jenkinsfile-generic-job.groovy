@@ -14,7 +14,6 @@ pipeline {
         }
 
         stage ('list s3 bucket'){
-        echo "listing Bucket"
             steps {
                 build job: 's3-list-CD'
                       parameters: [
