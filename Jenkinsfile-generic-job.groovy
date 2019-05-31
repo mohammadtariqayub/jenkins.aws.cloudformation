@@ -15,7 +15,7 @@ pipeline {
 
         stage ('list s3 bucket'){
             steps {
-                build job: 's3-list-CD'
+                build job: 's3-list-CD',
                       parameters: [
                         string(name: 'BucketName', value: params['BucketName'])
                       ]  
