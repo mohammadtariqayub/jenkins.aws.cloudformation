@@ -17,7 +17,7 @@ pipeline {
             steps {
                 build job: 's3-list-CD'
                       parameters: {
-                        string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
+                        string(name: 'BucketName', value: params['BucketName']
                       }  
             }
         }
