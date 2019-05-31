@@ -14,6 +14,10 @@ Parameters:
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: AWS::EC2::KeyPair::KeyName
+  HostName:
+    Type: String
+    Default: amadev-moh-1
+    Description: Name of the host
   InstanceType:
     Description: EC2 instance types
     Type: String
@@ -69,7 +73,7 @@ Resources:
     Type: AWS::EC2::Instance
     CreationPolicy:
       ResourceSignal:
-        Timeout: PT7M
+        Timeout: PT15M
         Count: '1'
     Metadata:
       AWS::CloudFormation::Init:
@@ -129,6 +133,7 @@ Resources:
                   - "cd /root/soft\n"
                   - "/usr/bin/aws s3 cp s3://aws-disrd-dev-cloudformation-scripts . --recursive\n"
                   - "ln -sf /usr/share/zoneinfo/Australia/Sydney /etc/localtime\n"
+                  - "/usr/bin/bash /root/soft/rhel7_builder.sh\n"
                   - "\n"
 
           commands:
@@ -138,6 +143,13 @@ Resources:
               command: systemctl start cfn-hup.service
             03-run_bootstrip:
               command: "/usr/bin/bash /root/soft/bootstrap_script1.sh"
+            04-run_rename:
+              command:
+                  !Join
+                    - ""
+                    - - "/usr/bin/hostnamectl set-hostname --static"
+                      - !Ref "HostName"
+                      - " -reboot" 
 
     Properties:
       InstanceType:
@@ -181,6 +193,10 @@ Resources:
               - " --region "
               - Ref: AWS::Region
               - "\n"
+      Tags:
+        -
+          Key: Name
+          Value:  !Ref HostName
 
 Outputs:
   EC2InstanceId:
