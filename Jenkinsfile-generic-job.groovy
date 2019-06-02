@@ -1,9 +1,10 @@
-def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
-if (!validBucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
-
 pipeline {
 
     agent { label 'slave' }
+
+    parameters {
+        string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
+    }
 
     stages{
         stage('template copy'){
