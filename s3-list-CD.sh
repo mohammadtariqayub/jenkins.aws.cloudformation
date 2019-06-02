@@ -1,5 +1,5 @@
 stage('list s3 bucket'){
     steps {
-        echo "Bucket Name: ${env:BucketName}"
-        echo "Bucket Name: ${params.BucketName}"
+        sh echo "Bucket Name: ${env:BucketName}"
+        sh echo "Bucket Name: ${params.BucketName}"
     }
