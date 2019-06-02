@@ -1,6 +1,6 @@
 node ('slave') {
   stage ('parameter_check') {
-    def validBucketName = (params['BucketName'] ==~ /^[0-9]{12}$/)
+    def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
     if (!validBucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
 
     echo "parameter_check stage complete!!"
