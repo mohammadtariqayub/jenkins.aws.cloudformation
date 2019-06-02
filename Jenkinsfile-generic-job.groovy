@@ -6,7 +6,7 @@ pipeline {
           if (!validBucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
         }
     
-    stages{
+ 
         stage('template copy'){
           steps {
            git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
@@ -22,5 +22,5 @@ pipeline {
              ]  
            }  
         }
-    }
+    
 }
