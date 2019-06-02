@@ -1,5 +1,6 @@
-pipeline {
+def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
 
+pipeline {
     agent { label 'slave' }
 
     parameters {
