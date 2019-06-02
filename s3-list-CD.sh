@@ -1,3 +1,7 @@
+parameters {
+        string(defaultValue: "", description: 'K', name: 'BucketName')
+    }
+
 stage('list s3 bucket'){
     steps {
         sh echo "Bucket Name: ${env:BucketName}"
