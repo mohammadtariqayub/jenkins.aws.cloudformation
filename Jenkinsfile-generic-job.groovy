@@ -1,10 +1,8 @@
 pipeline {
     agent { label 'slave' }
 
-    parameters {
-        def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
-        if (!validBucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
-    }
+    def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
+    if (!validBucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
 
     stages{
         stage('template copy'){
