@@ -1,12 +1,14 @@
 pipeline {
     agent { label 'slave' }
 
-    parameters {
-        string(defaultValue: "subnet-061b3d9a7f8b88210", description: 'Enter Subnet ID', name: 'SubnetId')
-        string(defaultValue: "ami-0fb7513bcdc525c3b", description: 'Enter Image ID', name: 'ImageId')
-        string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
-    }
     stages{
+        stage ('parameter_check') {
+          def validBucketName = (params['BucketName'] ==~ /^[0-9]{12}$/)
+          if (!validABucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
+
+        echo "parameter_check stage complete!!"
+  }
+        
         stage('template copy'){
             steps {
                 git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
