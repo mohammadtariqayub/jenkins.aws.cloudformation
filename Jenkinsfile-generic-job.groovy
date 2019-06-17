@@ -15,8 +15,8 @@ pipeline {
             }
         }
         stage ('list s3 bucket'){
-        echo "Lising s3 bucket"    
-        build job: 's3-list-CD'
+          echo "Lising s3 bucket"    
+          build job: 's3-list-CD'
         }
     }      
 }
