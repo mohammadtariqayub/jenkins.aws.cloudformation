@@ -1,4 +1,6 @@
 stage('s3-list-CD'){
     steps {
+        echo Hello
+        echo ${env:BucketName}
         sh 'echo ${env:BucketName}'
     }
