@@ -1,7 +1,7 @@
 node ('slave') {
   stage ('parameter_check') {
     def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
-    if (!validBusinessOwner) { error "Invalid parameter BusinessOwner. Parameter cannot be empty!" }
+    if (!validBucketName) { error "Invalid parameter BusinessOwner. Parameter cannot be empty!" }
     
     echo "parameter_check stage complete!!"
   }
