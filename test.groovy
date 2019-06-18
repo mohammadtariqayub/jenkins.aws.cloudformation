@@ -11,5 +11,6 @@ node ('slave') {
     build job: 's3-list-CD',
            parameters: [
                 string(name: 'BucketName', value: params['BucketName'])
-            ]
+           ]
   }
+}
