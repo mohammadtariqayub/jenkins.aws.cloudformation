@@ -8,7 +8,7 @@ node ('slave') {
 
   stage('template copy'){
     git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
-    sh "cp single_instance_generic.yaml /root/jenkins.aws.templates/single_instance_generic.yaml"
+    sh "cp ./scripts/s3-list-CD.sh /root/jenkins.aws.templates/s3-list-CD.sh"
     }
 
   stage('list s3 bucket') {
