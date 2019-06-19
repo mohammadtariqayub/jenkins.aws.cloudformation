@@ -1,3 +1,4 @@
+echo hello
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName\
 --template-body file:///root/jenkins.aws.cloudformation/single_instance_windows-cutomized.yaml --parameters \
 ParameterKey=SubnetId,ParameterValue=$SubnetId ParameterKey=ImageID,ParameterValue=$ImageID \
