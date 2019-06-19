@@ -15,7 +15,7 @@ node ('slave') {
     echo "Listing s3 bucket"
     build job: 's3-list-CD',
            parameters: [
-                string(name: 'AWSBucketName', value: params['AWSBucketName']),
+                string(name: 'AWSBucketName', value: params['AWSBucketName'])
            ]
   }
 }
