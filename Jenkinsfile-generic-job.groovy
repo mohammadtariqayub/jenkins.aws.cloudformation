@@ -3,7 +3,7 @@ node ('slave') {
     def validAWSBucketName = (params['AWSBucketName'] ==~ /^(?!\s*$).+/)
     if (!validAWSBucketName) { error "Invalid parameter Bucket Name. Parameter cannot be empty!" }
     
-    echo "parameter_check stage complete!!"
+    echo "parameter_check stage complete!!!"
   }
 
   stage('list s3 bucket') {
