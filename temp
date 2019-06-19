@@ -28,3 +28,7 @@ pipeline {
           def validBucketName = (params['BucketName'] ==~ /^(?!\s*$).+/)
           if (!validBucketName) { error "Invalid parameter BucketName. Should [0-9]{12}!" }
         }
+
+
+        #echo ${env:BucketName}
+#sh 'echo ${env:BucketName}'
