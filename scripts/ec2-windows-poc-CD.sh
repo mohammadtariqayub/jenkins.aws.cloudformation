@@ -12,4 +12,6 @@ ParameterKey=Proxy,ParameterValue=$Proxy
 # Wait for stack to complete
 FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 echo $FinalStatus
-if (-Not $FinalStatus) { exit 1 }
+while $FinalStatus != "CREATE_COMPLETE"
+    wait 60
+done
