@@ -8,5 +8,5 @@ ParameterKey=KeyPairName,ParameterValue=$KeyPairName ParameterKey=Environment,Pa
 ParameterKey=AWSAccount,ParameterValue=$AWSAccount ParameterKey=GorillaStack,ParameterValue=$GorillaStack \
 ParameterKey=SNSTopicARN,ParameterValue=$SNSTopicARN ParameterKey=JoinDomain,ParameterValue=$JoinDomain \
 ParameterKey=Proxy,ParameterValue=$Proxy
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name deploy-moh-cli-test-amapoc-moh-private-1 |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 echo $FinalStatus
