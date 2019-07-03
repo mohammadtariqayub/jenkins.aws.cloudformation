@@ -9,7 +9,7 @@ node ('slave') {
 
   stage('template copy'){
     git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
-    sh "cp -R * /root/"
+    sh "cp -R * /root/jenkins.aws.cloudformation/"
   }
 
   stage('list s3 bucket') {
