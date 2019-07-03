@@ -1,5 +1,5 @@
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName \
---template-body file:///root/jenkins.aws.cloudformation/single_instance_windows-cutomized.yaml --parameters \
+--template-body file:///root/jenkins.aws.cloudformation/cloudformation/single_instance_windows-cutomized.yaml --parameters \
 ParameterKey=SubnetId,ParameterValue=$SubnetId ParameterKey=ImageID,ParameterValue=$ImageID \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner ParameterKey=OS,ParameterValue=$OS \
 ParameterKey=HostName,ParameterValue=$HostName ParameterKey=SecurityGroupId,ParameterValue=$SecurityGroupId \
