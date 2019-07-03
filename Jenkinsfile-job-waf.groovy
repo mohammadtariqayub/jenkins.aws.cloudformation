@@ -13,11 +13,23 @@ node ('slave') {
     sh "cp ./scripts/ec2-windows-poc-CD.sh /root/jenkins.aws.cloudformation/scripts/ec2-windows-poc-CD.sh"
     }
 
-  stage('list s3 bucket') {
-    echo "Listing s3 bucket"
-    build job: 's3-list-CD',
+  stage('create acm certificate') {
+    echo "creating acm certificate"
+    build job: 'acm-cert-CD',
            parameters: [
-                string(name: 'AWSBucketName', value: params['AWSBucketName'])
+                string(name: 'StackName', value: params['StackName']),
+                string(name: 'ApexDomainName', value: params['ApexDomainName']),
+                string(name: 'Application', value: params['Application']),
+                string(name: 'BusinessOwner', value: params['BusinessOwner']),
+                string(name: 'BusinessUnit', value: params['BusinessUnit']),
+                string(name: 'Comments', value: params['Comments']),
+                string(name: 'DomainName', value: params['DomainName']),
+                string(name: 'Environment', value: params['Environment']),
+                string(name: 'ProjectCode', value: params['ProjectCode']),
+                string(name: 'RecID', value: params['RecID']),
+                string(name: 'RFC', value: params['RFC']),
+                string(name: 'SystemOwner', value: params['SystemOwner']),
+                string(name: 'AWSAccountSSMParameter', value: params['AWSAccountSSMParameter'])
            ]
   }
 }
