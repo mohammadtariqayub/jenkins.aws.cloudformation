@@ -20,5 +20,5 @@ do
 done
 # Get Instance ID
 InstanceID=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |grep "i-" |cut -d ":" -f2 |sed 's/[", ]//g'`
-echo $InstanceID
-echo $InstanceID > artifacts\instanceid.txt
+echo Instance ID is $InstanceID
+echo $InstanceID > /root/artifacts/instanceid.txt
