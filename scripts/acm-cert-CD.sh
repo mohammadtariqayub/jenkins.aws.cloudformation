@@ -26,7 +26,7 @@ do
     echo $FinalStatus
 done
 # Get ACM ID
-acm_arn_ap_southeast_2 = `/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |cut -d '"' -f4`
-filename = acm_arn_ap_southeast_2_$StackName
+acm_arn_ap_southeast_2=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |cut -d '"' -f4`
+filename=acm_arn_ap_southeast_2_$StackName
 echo ACM ARN ap-southeast-2 is $acm_arn_ap_southeast_2
 echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename.txt
