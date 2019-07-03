@@ -18,3 +18,7 @@ do
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
+# Get Instance ID
+InstanceID=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |grep "i-" |cut -d ":" -f2 |sed 's/[", ]//g'`
+echo $InstanceID
+echo $InstanceID > artifacts\instanceid.txt
