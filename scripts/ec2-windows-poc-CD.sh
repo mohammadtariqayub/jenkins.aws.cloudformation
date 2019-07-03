@@ -14,7 +14,7 @@ FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack
 echo $FinalStatus
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
-    sleep 30
+    sleep 60
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
