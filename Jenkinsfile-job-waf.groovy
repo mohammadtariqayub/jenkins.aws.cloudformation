@@ -11,6 +11,7 @@ node ('slave') {
     git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
     sh "cp ./scripts/s3-list-CD.sh /root/jenkins.aws.cloudformation/scripts/s3-list-CD.sh"
     sh "cp ./scripts/ec2-windows-poc-CD.sh /root/jenkins.aws.cloudformation/scripts/ec2-windows-poc-CD.sh"
+    sh "cp ./cloudformation/acm-cert-CD.sh /root/jenkins.aws.cloudformation/cloudformation/acm-cert-CD.sh"
     }
 
   stage('create acm certificate') {
