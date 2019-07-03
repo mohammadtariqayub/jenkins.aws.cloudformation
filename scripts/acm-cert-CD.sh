@@ -11,7 +11,7 @@ ParameterKey=BusinessUnit,ParameterValue=$BusinessUnit \
 ParameterKey=Comments,ParameterValue=$Comments \
 ParameterKey=DomainName,ParameterValue=$DomainName \
 ParameterKey=Environment,ParameterValue=$Environment \
-ParameterKey=InstancePProjectCoderofile,ParameterValue=$ProjectCode \
+ParameterKey=ProjectCode,ParameterValue=$ProjectCode \
 ParameterKey=RecID,ParameterValue=$RecID \
 ParameterKey=RFC,ParameterValue=$RFC \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
