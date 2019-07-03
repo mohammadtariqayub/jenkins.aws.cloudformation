@@ -9,9 +9,9 @@ node ('slave') {
         string(defaultValue: "windows", description: 'Enter OS', name: 'OS')
         string(defaultValue: "amapocmoh-4", description: 'Enter Host Name', name: 'HostName')
         string(defaultValue: "arn:aws:sns:ap-southeast-2:820636345429:mohammad-ping-poc-topic", description: 'Enter SNS Topics', name: 'SNSTopicARN')
-        string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'BucketName')
+        string(defaultValue: "mohammad-resize-dest", description: 'Enter Bucket Name', name: 'AWSBucketName')
     }
-    
+
   stage ('parameter_check') {
     def validAWSBucketName = (params['AWSBucketName'] ==~ /^(?!\s*$).+/)
     if (!validAWSBucketName) { error "Invalid parameter Bucket Name. Parameter cannot be empty!" }
