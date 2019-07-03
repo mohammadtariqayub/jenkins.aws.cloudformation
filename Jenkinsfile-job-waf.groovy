@@ -17,12 +17,4 @@ parameters {
     sh "cp ./scripts/s3-list-CD.sh /root/jenkins.aws.cloudformation/scripts/s3-list-CD.sh"
     sh "cp ./scripts/ec2-windows-poc-CD.sh /root/jenkins.aws.cloudformation/scripts/ec2-windows-poc-CD.sh"
     }
-
-  stage('list s3 bucket') {
-    echo "Listing s3 bucket"
-    build job: 's3-list-CD',
-           parameters: [
-                string(name: 'AWSBucketName', value: params['AWSBucketName'])
-           ]
-  }
 }
