@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # deploying cerificate in ap_southeast_2
-StackName_syd="$StackName-acm-$Application-sydney"
+StackName_syd="01-$StackName-acm-$Application-sydney"
 echo "deploying Stack $StackName"
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_syd \
@@ -33,7 +33,7 @@ echo ACM ARN ap-southeast-2 is $acm_arn_ap_southeast_2
 echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename.txt
 
 # deploying cerificate in us-east-1
-StackName_us="$StackName-acm-$Application-us-1"
+StackName_us="02-$StackName-acm-$Application-us-1"
 echo "deploying Stack $StackName"
 
 /root/.local/lib/aws/bin/aws --region us-east-1	cloudformation create-stack --stack-name $StackName_us \
