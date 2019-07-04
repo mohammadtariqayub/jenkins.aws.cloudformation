@@ -16,18 +16,18 @@ ParameterKey=ProjectCode,ParameterValue=$ProjectCode \
 ParameterKey=RecID,ParameterValue=$RecID \
 ParameterKey=RFC,ParameterValue=$RFC \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
-ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter 
+ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter --profile poc_poweruser
 
 # Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName --profile poc_poweruser |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
     sleep 60
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName --profile poc_poweruser |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
 # Get ACM ID
-acm_arn_ap_southeast_2=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |cut -d '"' -f4`
+acm_arn_ap_southeast_2=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName --profile poc_poweruser |grep PhysicalResourceId |cut -d '"' -f4`
 filename="acm_arn_$StackName"
 echo ACM ARN ap-southeast-2 is $acm_arn_ap_southeast_2
 echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename.txt
@@ -49,18 +49,18 @@ ParameterKey=ProjectCode,ParameterValue=$ProjectCode \
 ParameterKey=RecID,ParameterValue=$RecID \
 ParameterKey=RFC,ParameterValue=$RFC \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
-ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter 
+ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter --profile poc_poweruser
 
 # Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName --profile poc_poweruser |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
     sleep 60
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName --profile poc_poweruser |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
 # Get ACM ID
-acm_arn_us-east-1=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |cut -d '"' -f4`
+acm_arn_us-east-1=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName --profile poc_poweruser |grep PhysicalResourceId |cut -d '"' -f4`
 filename="acm_arn_$StackName"
 echo ACM ARN us-east-1 is $acm_arn_us-east-1
 echo $acm_arn_us-east-1 > /root/artifacts/$filename.txt

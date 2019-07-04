@@ -7,17 +7,17 @@ ParameterKey=InstanceType,ParameterValue=$InstanceType ParameterKey=InstanceProf
 ParameterKey=KeyPairName,ParameterValue=$KeyPairName ParameterKey=Environment,ParameterValue=$Environment \
 ParameterKey=AWSAccount,ParameterValue=$AWSAccount ParameterKey=GorillaStack,ParameterValue=$GorillaStack \
 ParameterKey=SNSTopicARN,ParameterValue=$SNSTopicARN ParameterKey=JoinDomain,ParameterValue=$JoinDomain \
-ParameterKey=Proxy,ParameterValue=$Proxy
+ParameterKey=Proxy,ParameterValue=$Proxy --profile poc_poweruser
 
 # Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName --profile poc_poweruser |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
     sleep 60
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName --profile poc_poweruser |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
 # Get Instance ID
-InstanceID=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |grep "i-" |cut -d ":" -f2 |sed 's/[", ]//g'`
+InstanceID=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName --profile poc_poweruser |grep PhysicalResourceId |grep "i-" |cut -d ":" -f2 |sed 's/[", ]//g'`
 echo Instance ID is $InstanceID
 echo $InstanceID > /root/artifacts/instanceid.txt
