@@ -3,7 +3,7 @@
 StackName="$StackName-sg-$Application"
 echo "deploying Stack $StackName"
 
-/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName --capabilities CAPABILITY_IAM \
+/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName --capabilities CAPABILITY_NAMED_IAM \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/cloudfront-elb-security-groups.yml --parameters \
 ParameterKey=Application,ParameterValue=$Application \
 ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter \
