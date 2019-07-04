@@ -12,8 +12,8 @@ node ('slave') {
     sh "cp -R * /root/jenkins.aws.cloudformation/"
   }
 
-  stage('deploy ALB-WAF-CF security group') {
-    echo "creating acm certificate"
+  stage('deploy security group') {
+    echo "deploying security group"
     build job: 'cloudfront-sg-CD',
            parameters: [
                 string(name: 'StackName', value: params['StackName']),
