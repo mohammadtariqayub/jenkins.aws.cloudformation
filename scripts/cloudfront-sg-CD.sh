@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # deploying security group and lambda in ap_southeast_2
-StackName_sg="03-$StackName-sg-$Application"
+StackName_sg="$StackName-sg-$Application"
 echo "deploying Stack $StackName_sg"
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_sg --capabilities CAPABILITY_NAMED_IAM \
