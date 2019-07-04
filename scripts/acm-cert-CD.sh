@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # deploying cerificate in ap_southeast_2
-StackName="$StackName-acm-$Application-sydney"
 StackNameus="$StackName"
+StackName="$StackName-acm-$Application-sydney"
 echo $StackName
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName \
@@ -53,15 +53,15 @@ ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
 ParameterKey=AWSAccount,ParameterValue=$AWSAccount
 
 # Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
     sleep 60
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    FinalStatus=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
 # Get ACM ID
-acm_arn_us-east-1=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |cut -d '"' -f4`
+acm_arn_us-east-1=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stack-resources --stack-name $StackName |grep PhysicalResourceId |cut -d '"' -f4`
 filename="acm_arn_$StackName"
 echo ACM ARN us-east-1 is $acm_arn_us-east-1
 echo $acm_arn_us-east-1 > /root/artifacts/$filename.txt
