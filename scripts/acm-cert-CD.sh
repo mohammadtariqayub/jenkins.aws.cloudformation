@@ -16,7 +16,7 @@ ParameterKey=ProjectCode,ParameterValue=$ProjectCode \
 ParameterKey=RecID,ParameterValue=$RecID \
 ParameterKey=RFC,ParameterValue=$RFC \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
-ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter
+ParameterKey=AWSAccount,ParameterValue=$AWSAccount
 
 # Wait for stack to complete
 FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
@@ -49,7 +49,7 @@ ParameterKey=ProjectCode,ParameterValue=$ProjectCode \
 ParameterKey=RecID,ParameterValue=$RecID \
 ParameterKey=RFC,ParameterValue=$RFC \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
-ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter
+ParameterKey=AWSAccount,ParameterValue=$AWSAccount
 
 # Wait for stack to complete
 FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`

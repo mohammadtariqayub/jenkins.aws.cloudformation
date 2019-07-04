@@ -9,11 +9,8 @@ node ('slave') {
 
   stage('template copy'){
     git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
-    sh "cp ./scripts/s3-list-CD.sh /root/jenkins.aws.cloudformation/scripts/s3-list-CD.sh"
-    sh "cp ./scripts/ec2-windows-poc-CD.sh /root/jenkins.aws.cloudformation/scripts/ec2-windows-poc-CD.sh"
-    sh "cp ./scripts/acm-cert-CD.sh /root/jenkins.aws.cloudformation/scripts/acm-cert-CD.sh"
-    sh "cp ./cloudformation/acm-provision-ssl-certificate.yml /root/jenkins.aws.cloudformation/cloudformation/acm-provision-ssl-certificate.yml"
-    }
+    sh "cp -R * /root/jenkins.aws.cloudformation/"
+  }
 
   stage('create acm certificate') {
     echo "creating acm certificate"
@@ -30,8 +27,8 @@ node ('slave') {
                 string(name: 'ProjectCode', value: params['ProjectCode']),
                 string(name: 'RecID', value: params['RecID']),
                 string(name: 'RFC', value: params['RFC']),
-                string(name: 'SystemOwner', value: params['SystemOwner']),
-                string(name: 'AWSAccountSSMParameter', value: params['AWSAccountSSMParameter'])
+                string(name: 'AWSAccount', value: params['AWSAccount']),
+                string(name: 'SystemOwner', value: params['SystemOwner'])
            ]
   }
 }

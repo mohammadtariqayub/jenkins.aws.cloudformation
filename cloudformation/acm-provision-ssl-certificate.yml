@@ -13,12 +13,10 @@ Parameters:
     Description: Application using the Certificate    
     Default: ""  
   
-  AWSAccountSSMParameter:
-    Type: "AWS::SSM::Parameter::Value<String>"
-    Description:  Leave as default.! SSM parameter name that has Account alias value.
-    Default: AccountAlias
-    AllowedValues:
-      - AccountAlias      
+  AWSAccount:
+    Type: String
+    Description: AWS Account name    
+    Default: "aws-disrd-poc"  
 
   BusinessOwner:
     Type: String
@@ -88,7 +86,7 @@ Resources:
       ValidationMethod: EMAIL
       Tags:            
         - Key: AWSAccount
-          Value: !Ref AWSAccountSSMParameter
+          Value: !Ref AWSAccount
         - Key: Application
           Value: !Ref Application
         - Key: Comments
