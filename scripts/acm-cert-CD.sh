@@ -31,8 +31,6 @@ acm_arn_ap_southeast_2=`/root/.local/lib/aws/bin/aws cloudformation describe-sta
 filename="acm_arn_$StackName"
 echo ACM ARN ap-southeast-2 is $acm_arn_ap_southeast_2
 echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename.txt
-AWSAccountSSMParameter_us1="$AWSAccountSSMParameter"
-echo $AWSAccountSSMParameter_us1
 
 # deploying cerificate in us-east-1
 StackName="$StackName-acm-$Application-us-1"
@@ -51,7 +49,7 @@ ParameterKey=ProjectCode,ParameterValue=$ProjectCode \
 ParameterKey=RecID,ParameterValue=$RecID \
 ParameterKey=RFC,ParameterValue=$RFC \
 ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
-ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter_us1 
+ParameterKey=AWSAccountSSMParameter,ParameterValue=$AWSAccountSSMParameter 
 
 # Wait for stack to complete
 FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
