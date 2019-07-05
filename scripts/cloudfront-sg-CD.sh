@@ -33,13 +33,13 @@ echo "`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --st
 lambda_ID=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_sg |grep PhysicalResourceId |grep function |cut -d '"' -f4`
 filename_lambda="lambda_function_$StackName_sg"
 echo lambda function is $lambda_ID
-echo $lambda_ID > /root/artifacts/$filename_lambda.txt
+echo $lambda_ID > /root/artifacts/$filename_lambda
 
 # Get lambda ARN
 LambdaARN=`/root/.local/lib/aws/bin/aws lambda get-function --function-name $lambda_ID |grep FunctionArn |cut -d '"' -f4`
 filename_lambda_arn="lambda_arn_$StackName_sg"
 echo lambda ARN is $LambdaARN
-echo $LambdaARN > /root/artifacts/$filename_lambda_arn.txt
+echo $LambdaARN > /root/artifacts/$filename_lambda_arn
 
 echo "Security group and Lambda function creation done"
 echo " "

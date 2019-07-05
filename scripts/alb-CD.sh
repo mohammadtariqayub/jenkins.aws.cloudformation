@@ -1,0 +1,48 @@
+#!/usr/bin/bash
+# deploying Application Load Balancer
+StackName_alb="$StackName-alb-$Application"
+echo "deploying Stack $StackName_alb"
+
+#Defining parameters
+ALBName="$Application-$Environment-ext-alb"
+CFNTemplate="create-alb.yml"
+CertificateArn=`cat /root/artifacts/acm_arn_deploy-moh-poc-alb-waf-cf-acm-vdctest-sydney`
+Role="web"
+CloudFrontGlobalSecurityGroupID=`head -1 /root/artifacts/sg_deploy-moh-poc-alb-waf-cf-sg-vdctest`
+CloudFrontRegionalSecurityGroupID=`tail -1 /root/artifacts/sg_deploy-moh-poc-alb-waf-cf-sg-vdctest`
+SslPolicy="ELBSecurityPolicy-TLS-1-2-2017-01"
+
+/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_alb \
+--template-body file:///root/jenkins.aws.cloudformation/cloudformation/create-alb.yml --parameters \
+ParameterKey=ALBName,ParameterValue=$ALBName \
+ParameterKey=ALBScheme,ParameterValue=$ALBScheme \
+ParameterKey=ALBAcessLogBucket,ParameterValue=$ALBAcessLogBucket \
+ParameterKey=CertificateArn,ParameterValue=$CertificateArn \
+ParameterKey=VpcId,ParameterValue=$VpcId \
+ParameterKey=CloudFrontGlobalSecurityGroupID,ParameterValue=$CloudFrontGlobalSecurityGroupID \
+ParameterKey=CloudFrontRegionalSecurityGroupID,ParameterValue=$CloudFrontRegionalSecurityGroupID \
+ParameterKey=PublicSubnetA,ParameterValue=$PublicSubnetA \
+ParameterKey=PublicSubnetB,ParameterValue=$PublicSubnetB \
+ParameterKey=PublicSubnetC,ParameterValue=$PublicSubnetC \
+ParameterKey=EC2Instance1,ParameterValue=$EC2Instance1 \
+ParameterKey=EC2Instance2,ParameterValue=$EC2Instance2 \
+ParameterKey=Application,ParameterValue=$Application \
+ParameterKey=BusinessOwner,ParameterValue=$BusinessOwner \
+ParameterKey=BusinessUnit,ParameterValue=$BusinessUnit \
+ParameterKey=CFNTemplate,ParameterValue=$CFNTemplate \
+ParameterKey=Criticality,ParameterValue=$Criticality \
+ParameterKey=Environment,ParameterValue=$Environment \
+ParameterKey=RecID,ParameterValue=$RecID \
+ParameterKey=SystemOwner,ParameterValue=$SystemOwner \
+ParameterKey=Role,ParameterValue=$Role \
+ParameterKey=SslPolicy,ParameterValue=$SslPolicy
+
+# Wait for stack to complete
+FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_alb |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+while [ "$FinalStatus" != "CREATE_COMPLETE" ]
+do
+    sleep 60
+    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_alb |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    echo $FinalStatus
+done
+# Get ACM ID

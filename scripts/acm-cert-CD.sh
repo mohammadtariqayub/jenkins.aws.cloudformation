@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # deploying cerificate in ap_southeast_2
 StackName_syd="$StackName-acm-$Application-sydney"
-echo "deploying Stack $StackName"
+echo "deploying Stack $StackName_syd"
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_syd \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/acm-provision-ssl-certificate.yml --parameters \
@@ -30,7 +30,7 @@ done
 acm_arn_ap_southeast_2=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_syd |grep PhysicalResourceId |cut -d '"' -f4`
 filename="acm_arn_$StackName_syd"
 echo ACM ARN ap-southeast-2 is $acm_arn_ap_southeast_2
-echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename.txt
+echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename
 
 # deploying cerificate in us-east-1
 StackName_us="$StackName-acm-$Application-us-1"
@@ -63,4 +63,4 @@ done
 acm_arn_us_east_1=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stack-resources --stack-name $StackName_us |grep PhysicalResourceId |cut -d '"' -f4`
 filename="acm_arn_$StackName_us"
 echo ACM ARN us-east-1 is $acm_arn_us_east_1
-echo $acm_arn_us_east_1 > /root/artifacts/$filename.txt
+echo $acm_arn_us_east_1 > /root/artifacts/$filename
