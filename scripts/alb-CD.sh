@@ -45,4 +45,8 @@ do
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_alb |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
-# Get ACM ID
+# Get ALB arn
+albARN=`/root/.local/lib/aws/bin/aws elbv2 describe-load-balancers --names $ALBName |grep LoadBalancerArn |cut -d '"' -f4`
+filename_alb_arn="alb-arn-$StackName"
+echo alb ARN is $albARN
+echo $albARN > /root/artifacts/$filename_alb_arn
