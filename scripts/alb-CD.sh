@@ -8,8 +8,8 @@ ALBName="$Application-$Environment-ext-alb"
 CFNTemplate="create-alb.yml"
 CertificateArn="`cat /root/artifacts/acm-arn-$StackName-syd`"
 Role="web"
-CloudFrontGlobalSecurityGroupID=`head -1 /root/artifacts/sg_deploy-moh-poc-alb-waf-cf-sg-vdctest`
-CloudFrontRegionalSecurityGroupID=`tail -1 /root/artifacts/sg_deploy-moh-poc-alb-waf-cf-sg-vdctest`
+CloudFrontGlobalSecurityGroupID=`head -1 /root/artifacts/sg-$StackName`
+CloudFrontRegionalSecurityGroupID=`tail -1 /root/artifacts/sg-$StackName`
 SslPolicy="ELBSecurityPolicy-TLS-1-2-2017-01"
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_alb \
