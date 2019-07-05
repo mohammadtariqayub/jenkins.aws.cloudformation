@@ -41,7 +41,7 @@ ParameterKey=SslPolicy,ParameterValue=$SslPolicy
 FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_alb |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
-    sleep 60
+    sleep 30
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_alb |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done

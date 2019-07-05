@@ -12,18 +12,17 @@ node ('slave') {
     sh "cp -R * /root/jenkins.aws.cloudformation/"
   }
 
-  stage('deploy security group') {
-    echo "deploying security group"
-    build job: 'cloudfront-sg-CD',
+  stage('deploy s3 buckets') {
+    echo "deploy s3 buckets for WAF and CF"
+    build job: 's3-bucket-CD',
            parameters: [
                 string(name: 'StackName', value: params['StackName']),
                 string(name: 'Application', value: params['Application']),
-                string(name: 'AWSAccountSSMParameter', value: params['AWSAccountSSMParameter']),
-                string(name: 'Comments', value: params['Comments']),
-                string(name: 'DeploymentBucket', value: params['DeploymentBucket']),
-                string(name: 'ProjectCode', value: params['ProjectCode']),
+                string(name: 'EnvironmentType', value: params['EnvironmentType']),
+                string(name: 'BusinessUnit', value: params['BusinessUnit']),
                 string(name: 'Environment', value: params['Environment']),
-                string(name: 'VpcId', value: params['VpcId']),
+                string(name: 'ProjectCode', value: params['ProjectCode']),
+                string(name: 'RFC', value: params['RFC']),
                 string(name: 'SystemOwner', value: params['SystemOwner'])
            ]
   }
