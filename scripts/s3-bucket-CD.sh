@@ -14,6 +14,8 @@ S3TagRFC="RFC"
 S3TagProjectCode="ProjectCode"
 S3TagPublicAccess="no"
 
+echo $BucketName
+
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_s3_waf \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/DOI-Standard-S3-template.yml --parameters \
 ParameterKey=BucketName,ParameterValue=$BucketName \
