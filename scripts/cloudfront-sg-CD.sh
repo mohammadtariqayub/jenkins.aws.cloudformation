@@ -56,7 +56,7 @@ ParameterKey=LambdaARN,ParameterValue=$LambdaARN
 FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
-    sleep 30
+    sleep 15
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
