@@ -25,6 +25,7 @@ done
 
 # Get SecurityGroup ID
 filename_sg="sg_$StackName_sg"
+echo " "
 echo "Security Group created are `/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_sg |grep PhysicalResourceId |grep sg-0 |cut -d '"' -f4`"
 echo "`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_sg |grep PhysicalResourceId |grep sg-0 |cut -d '"' -f4`" > /root/artifacts/$filename_sg.txt
 
@@ -41,6 +42,7 @@ echo lambda ARN is $LambdaARN
 echo $LambdaARN > /root/artifacts/$filename_lambda_arn.txt
 
 echo "Security group and Lambda function creation done"
+echo " "
 
 # Subscribe to AmazonIpSpaceChanged Topic
 StackName_sns="$StackName-sns-$Application"
@@ -58,5 +60,28 @@ do
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
-
+echo " "
 echo "SNS subscription for Lambda is done"
+
+echo "invoking lambda function"
+/root/.local/lib/aws/bin/aws lambda invoke --invocation-type RequestResponse --function-name vdctest-cloudfront-iprange-autoupdate-function --region ap-southeast-2 --log-type Tail --payload '{
+  "Records": [
+    {
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:EXAMPLE",
+      "EventSource": "aws:sns",
+      "Sns": {
+        "SignatureVersion": "1",
+        "Timestamp": "1970-01-01T00:00:00.000Z",
+        "Signature": "EXAMPLE",
+        "SigningCertUrl": "EXAMPLE",
+        "MessageId": "95df01b4-ee98-5cb9-9903-4c221d41eb5e",
+        "Message": "{\"create-time\": \"yyyy-mm-ddThh:mm:ss+00:00\", \"synctoken\": \"0123456789\", \"md5\": \"3af79df07492191895bb4c06dbdfabc6\", \"url\": \"https://ip-ranges.amazonaws.com/ip-ranges.json\"}",
+        "Type": "Notification",
+        "UnsubscribeUrl": "EXAMPLE",
+        "TopicArn": "arn:aws:sns:EXAMPLE",
+        "Subject": "TestInvoke"
+      }
+    }
+  ]
+}' /tmp/outputfile.txt 
