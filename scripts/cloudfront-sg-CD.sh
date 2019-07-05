@@ -22,6 +22,7 @@ do
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_sg |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
+
 # Get SecurityGroup ID
 filename_sg="sg_$StackName_sg"
 echo "Security Group created are `/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_sg |grep PhysicalResourceId |grep sg-0 |cut -d '"' -f4`"
@@ -29,6 +30,12 @@ echo "`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --st
 
 # Get lambda function ID
 lambda_ID=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_sg |grep PhysicalResourceId |grep function |cut -d '"' -f4`
-filename_lambda="lambda_$StackName_sg"
+filename_lambda="lambda_function_$StackName_sg"
 echo lambda function created is $lambda_ID
 echo $lambda_ID > /root/artifacts/$filename_lambda.txt
+
+# Get lambda ARN
+lambda_ARN=`/root/.local/lib/aws/bin/aws lambda get-function --function-name $lambda_ID |grep FunctionArn |cut -d '"' -f4`
+filename_lambda_arn="lambda_arn_$StackName_sg"
+echo lambda ARN is $lambda_ARN
+echo $lambda_ID > /root/artifacts/$filename_lambda_arn.txt
