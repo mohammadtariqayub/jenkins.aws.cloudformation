@@ -1,12 +1,5 @@
 node ('slave') {
-  
-  stage ('parameter_check') {
-    def validAWSBucketName = (params['AWSBucketName'] ==~ /^(?!\s*$).+/)
-    if (!validAWSBucketName) { error "Invalid parameter Bucket Name. Parameter cannot be empty!" }
-    
-    echo "parameter_check stage complete!!!"
-  }
-
+ 
   stage('template copy'){
     git url: 'https://github.com/mohammadtariqayub/jenkins.aws.cloudformation.git'
     sh "cp -R * /root/jenkins.aws.cloudformation/"
