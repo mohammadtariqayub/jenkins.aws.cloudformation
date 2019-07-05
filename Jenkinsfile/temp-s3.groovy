@@ -12,6 +12,7 @@ node ('slave') {
                 string(name: 'StackName', value: params['StackName']),
                 string(name: 'Application', value: params['Application']),
                 string(name: 'EnvironmentType', value: params['EnvironmentType']),
+                string(name: 'BusinessOwner', value: params['BusinessOwner']),
                 string(name: 'BusinessUnit', value: params['BusinessUnit']),
                 string(name: 'Environment', value: params['Environment']),
                 string(name: 'ProjectCode', value: params['ProjectCode']),
