@@ -6,7 +6,7 @@ echo "deploying Stack $StackName_alb"
 #Defining parameters
 ALBName="$Application-$Environment-ext-alb"
 CFNTemplate="create-alb.yml"
-CertificateArn=`cat /root/artifacts/acm_arn_deploy-moh-poc-alb-waf-cf-acm-vdctest-sydney`
+CertificateArn="`cat /root/artifacts/acm-arn-$StackName-syd`"
 Role="web"
 CloudFrontGlobalSecurityGroupID=`head -1 /root/artifacts/sg_deploy-moh-poc-alb-waf-cf-sg-vdctest`
 CloudFrontRegionalSecurityGroupID=`tail -1 /root/artifacts/sg_deploy-moh-poc-alb-waf-cf-sg-vdctest`

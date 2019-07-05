@@ -28,7 +28,7 @@ do
 done
 # Get ACM ID
 acm_arn_ap_southeast_2=`/root/.local/lib/aws/bin/aws cloudformation describe-stack-resources --stack-name $StackName_syd |grep PhysicalResourceId |cut -d '"' -f4`
-filename="acm_arn_$StackName_syd"
+filename="acm-arn-$StackName-syd"
 echo ACM ARN ap-southeast-2 is $acm_arn_ap_southeast_2
 echo $acm_arn_ap_southeast_2 > /root/artifacts/$filename
 
@@ -61,6 +61,6 @@ do
 done
 # Get ACM ID
 acm_arn_us_east_1=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stack-resources --stack-name $StackName_us |grep PhysicalResourceId |cut -d '"' -f4`
-filename="acm_arn_$StackName_us"
+filename="acm-arn-$StackName-us"
 echo ACM ARN us-east-1 is $acm_arn_us_east_1
 echo $acm_arn_us_east_1 > /root/artifacts/$filename
