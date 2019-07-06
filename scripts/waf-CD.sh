@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # deploying s3 for WAF
-StackName_s3_waf="$StackName-$Application-s3-waf"
-echo "deploying Stack $StackName_s3_waf"
+StackName_waf="$StackName-$Application-waf"
+echo "deploying Stack $StackName_waf"
 
 #Defining parameters
 BucketName="$BusinessOwner-$Application-waf-logs"
@@ -37,7 +37,7 @@ do
 done
 
 # deploying s3 for CF
-StackName_s3_cf="$StackName-$Application-s3-cf"
+StackName_s3_cf="$StackName-s3-cf-$Application"
 echo "deploying Stack $StackName_s3_cf"
 
 #Defining bucket name for CF

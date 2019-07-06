@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # deploying Application Load Balancer
-StackName_alb="$StackName-alb-$Application"
+StackName_alb="$StackName-$Application-alb"
 echo "deploying Stack $StackName_alb"
 
 #Defining parameters
