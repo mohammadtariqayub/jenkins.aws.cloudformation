@@ -64,6 +64,7 @@ echo " "
 echo "SNS subscription for Lambda is done"
 
 echo "invoking lambda function"
+lambda_function="`cat /root/artifacts/lambda-function-$StackName`"
 /root/.local/lib/aws/bin/aws lambda invoke --invocation-type RequestResponse --function-name vdctest-cloudfront-iprange-autoupdate-function --region ap-southeast-2 --log-type Tail --payload '{
   "Records": [
     {
