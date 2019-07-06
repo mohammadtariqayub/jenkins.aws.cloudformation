@@ -45,8 +45,9 @@ do
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_alb |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
-# Get ALB arn
-albARN=`/root/.local/lib/aws/bin/aws elbv2 describe-load-balancers --names $ALBName |grep LoadBalancerArn |cut -d '"' -f4`
-filename_alb_arn="alb-arn-$StackName"
-echo alb ARN is $albARN
-echo $albARN > /root/artifacts/$filename_alb_arn
+
+# Get ALB DNS
+albDNS=`/root/.local/lib/aws/bin/aws elbv2 describe-load-balancers --names $ALBName |grep DNSName |cut -d '"' -f4`
+filename_alb_dns="alb-dns-$StackName"
+echo alb DNS is $albDNS
+echo $albDNS > /root/artifacts/$filename_alb_dns
