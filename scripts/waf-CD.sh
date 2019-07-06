@@ -5,7 +5,7 @@ echo "deploying Stack $StackName_waf"
 
 #Defining parameters
 AppAccessLogBucket="$BusinessOwner-$Application-waf-logs"
-VersioActivateSqlInjectionProtectionParamning="yes"
+ActivateSqlInjectionProtectionParam="yes"
 ActivateCrossSiteScriptingProtectionParam="yes"
 ActivateHttpFloodProtectionParam="yes - AWS WAF rate based rule"
 ActivateScannersProbesProtectionParam="yes - AWS Lambda log parser"
