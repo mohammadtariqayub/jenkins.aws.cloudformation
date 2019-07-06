@@ -1,66 +1,41 @@
 #!/usr/bin/bash
-# deploying s3 for WAF
+# deploying WAF
 StackName_waf="$StackName-$Application-waf"
 echo "deploying Stack $StackName_waf"
 
 #Defining parameters
-BucketName="$BusinessOwner-$Application-waf-logs"
-Versioning="Suspended"
-S3TagBusinessUnit="$BusinessUnit"
-S3TagApplication="$Application"
-S3TagEnvironment="$Environment"
-S3TagSystemOwner="$SystemOwner"
-S3TagRFC="$RFC"
-S3TagProjectCode="$ProjectCode"
-S3TagPublicAccess="no"
+AppAccessLogBucket="$BusinessOwner-$Application-waf-logs"
+VersioActivateSqlInjectionProtectionParamning="yes"
+ActivateCrossSiteScriptingProtectionParam="yes"
+ActivateHttpFloodProtectionParam="yes - AWS WAF rate based rule"
+ActivateScannersProbesProtectionParam="yes - AWS Lambda log parser"
+ActivateBadBotProtectionParam="yes"
+EndpointType="CloudFront"
+RequestThreshold="2000"
+ErrorThreshold="50"
+WAFBlockPeriod="240"
+ErrorThreApiGatewayBadBotNameshold="$Application-$BusinessOwner"
 
-/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_s3_waf \
---template-body file:///root/jenkins.aws.cloudformation/cloudformation/DOI-Standard-S3-template.yml --parameters \
-ParameterKey=BucketName,ParameterValue=$BucketName \
-ParameterKey=Versioning,ParameterValue=$Versioning \
-ParameterKey=EnvironmentType,ParameterValue=$EnvironmentType \
-ParameterKey=S3TagBusinessUnit,ParameterValue=$S3TagBusinessUnit \
-ParameterKey=S3TagApplication,ParameterValue=$S3TagApplication \
-ParameterKey=S3TagEnvironment,ParameterValue=$S3TagEnvironment \
-ParameterKey=S3TagSystemOwner,ParameterValue=$S3TagSystemOwner \
-ParameterKey=S3TagRFC,ParameterValue=$S3TagRFC \
-ParameterKey=S3TagProjectCode,ParameterValue=$S3TagProjectCode \
-ParameterKey=S3TagPublicAccess,ParameterValue=$S3TagPublicAccess
-
-# Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_s3_waf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
-while [ "$FinalStatus" != "CREATE_COMPLETE" ]
-do
-    sleep 30
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_s3_waf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
-    echo $FinalStatus
-done
-
-# deploying s3 for CF
-StackName_s3_cf="$StackName-s3-cf-$Application"
-echo "deploying Stack $StackName_s3_cf"
-
-#Defining bucket name for CF
-BucketName="$BusinessOwner-$Application-cf-logs"
-
-/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_s3_cf \
---template-body file:///root/jenkins.aws.cloudformation/cloudformation/DOI-Standard-S3-template.yml --parameters \
-ParameterKey=BucketName,ParameterValue=$BucketName \
-ParameterKey=Versioning,ParameterValue=$Versioning \
-ParameterKey=EnvironmentType,ParameterValue=$EnvironmentType \
-ParameterKey=S3TagBusinessUnit,ParameterValue=$S3TagBusinessUnit \
-ParameterKey=S3TagApplication,ParameterValue=$S3TagApplication \
-ParameterKey=S3TagEnvironment,ParameterValue=$S3TagEnvironment \
-ParameterKey=S3TagSystemOwner,ParameterValue=$S3TagSystemOwner \
-ParameterKey=S3TagRFC,ParameterValue=$S3TagRFC \
-ParameterKey=S3TagProjectCode,ParameterValue=$S3TagProjectCode \
-ParameterKey=S3TagPublicAccess,ParameterValue=$S3TagPublicAccess
+/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_waf \
+--template-body file:///root/jenkins.aws.cloudformation/cloudformation/deploy-waf-v2.3.yml --parameters \
+ParameterKey=AppAccessLogBucket,ParameterValue=$AppAccessLogBucket \
+ParameterKey=ActivateSqlInjectionProtectionParam,ParameterValue=$ActivateSqlInjectionProtectionParam \
+ParameterKey=ActivateCrossSiteScriptingProtectionParam,ParameterValue=$ActivateCrossSiteScriptingProtectionParam \
+ParameterKey=ActivateHttpFloodProtectionParam,ParameterValue=$ActivateHttpFloodProtectionParam \
+ParameterKey=ActivateScannersProbesProtectionParam,ParameterValue=$ActivateScannersProbesProtectionParam \
+ParameterKey=ActivateReputationListsProtectionParam,ParameterValue=$ActivateReputationListsProtectionParam \
+ParameterKey=ActivateBadBotProtectionParam,ParameterValue=$ActivateBadBotProtectionParam \
+ParameterKey=EndpointType,ParameterValue=$EndpointType \
+ParameterKey=RequestThreshold,ParameterValue=$RequestThreshold \
+ParameterKey=ErrorThreshold,ParameterValue=$ErrorThreshold \
+ParameterKey=WAFBlockPeriod,ParameterValue=$WAFBlockPeriod \
+ParameterKey=ApiGatewayBadBotName,ParameterValue=$ApiGatewayBadBotName
 
 # Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_s3_cf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_waf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
-    sleep 30
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_s3_cf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    sleep 60
+    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_waf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
