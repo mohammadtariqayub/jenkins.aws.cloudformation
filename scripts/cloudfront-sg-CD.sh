@@ -53,11 +53,11 @@ echo "deploying Stack $StackName_sns"
 ParameterKey=LambdaARN,ParameterValue=$LambdaARN 
 
 # Wait for stack to complete
-FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+FinalStatus=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
 while [ "$FinalStatus" != "CREATE_COMPLETE" ]
 do
     sleep 15
-    FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
+    FinalStatus=`/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation describe-stacks --stack-name $StackName_sns |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
 echo " "
