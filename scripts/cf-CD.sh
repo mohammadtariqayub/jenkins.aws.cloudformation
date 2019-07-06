@@ -6,7 +6,7 @@ echo "deploying Stack $StackName_cf"
 #Defining parameters
 CloudfrontCertificate="`cat /root/artifacts/acm-arn-$StackName-us`"
 ELBDNSName="`cat /root/artifacts/alb-dns-$StackName`"
-WafAcl="$StackName-$Application-waf"
+WafAcl="`cat /root/artifacts/waf-id-$StackName`"
 BucketName="$BusinessOwner-$Application-cf-logs"
 CFNTemplate="deploy-cloudfront-single-domain.yml"
 Role="web"

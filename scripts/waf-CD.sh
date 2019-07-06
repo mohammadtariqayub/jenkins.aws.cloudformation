@@ -40,3 +40,9 @@ do
     FinalStatus=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_waf |grep StackStatus |cut -d ":" -f2 |sed 's/[", ]//g'`
     echo $FinalStatus
 done
+
+# Get WAFWebACL
+wafID=`/root/.local/lib/aws/bin/aws cloudformation describe-stacks --stack-name $StackName_waf --query "Stacks[0].Outputs[?OutputKey=='WAFWebACL'].OutputValue" --output text`
+filename_waf_id="waf-id-$StackName"
+echo WafACLID is $wafID
+echo $wafID > /root/artifacts/$filename_waf_id

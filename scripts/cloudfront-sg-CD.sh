@@ -48,7 +48,7 @@ echo " "
 StackName_sns="$StackName-$Application-sns"
 echo "deploying Stack $StackName_sns"
 
-/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_sns \
+/root/.local/lib/aws/bin/aws --region us-east-1 cloudformation create-stack --stack-name $StackName_sns \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/SNS-AmazonIpSpaceChanged-topic.yml --parameters \
 ParameterKey=LambdaARN,ParameterValue=$LambdaARN 
 
