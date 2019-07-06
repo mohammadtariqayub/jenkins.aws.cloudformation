@@ -7,8 +7,8 @@ echo "deploying Stack $StackName_waf"
 AppAccessLogBucket="$BusinessOwner-$Application-waf-logs"
 ActivateSqlInjectionProtectionParam="yes"
 ActivateCrossSiteScriptingProtectionParam="yes"
-ActivateHttpFloodProtectionParam="'yes - AWS WAF rate based rule'"
-ActivateScannersProbesProtectionParam="'yes - AWS Lambda log parser'"
+ActivateHttpFloodProtectionParam="yes - AWS WAF rate based rule"
+ActivateScannersProbesProtectionParam="yes - AWS Lambda log parser"
 ActivateReputationListsProtectionParam="yes"
 ActivateBadBotProtectionParam="yes"
 EndpointType="CloudFront"
@@ -22,8 +22,8 @@ ApiGatewayBadBotName="$Application-$BusinessOwner"
 ParameterKey=AppAccessLogBucket,ParameterValue=$AppAccessLogBucket \
 ParameterKey=ActivateSqlInjectionProtectionParam,ParameterValue=$ActivateSqlInjectionProtectionParam \
 ParameterKey=ActivateCrossSiteScriptingProtectionParam,ParameterValue=$ActivateCrossSiteScriptingProtectionParam \
-ParameterKey=ActivateHttpFloodProtectionParam,ParameterValue=$ActivateHttpFloodProtectionParam \
-ParameterKey=ActivateScannersProbesProtectionParam,ParameterValue=$ActivateScannersProbesProtectionParam \
+ParameterKey=ActivateHttpFloodProtectionParam,ParameterValue=${ActivateHttpFloodProtectionParam} \
+ParameterKey=ActivateScannersProbesProtectionParam,ParameterValue=${ActivateScannersProbesProtectionParam} \
 ParameterKey=ActivateReputationListsProtectionParam,ParameterValue=$ActivateReputationListsProtectionParam \
 ParameterKey=ActivateBadBotProtectionParam,ParameterValue=$ActivateBadBotProtectionParam \
 ParameterKey=EndpointType,ParameterValue=$EndpointType \
