@@ -17,7 +17,7 @@ ErrorThreshold="50"
 WAFBlockPeriod="240"
 ApiGatewayBadBotName="$Application-$BusinessOwner"
 
-/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_waf --capabilities CAPABILITY_IAM --capabilities CAPABILITY_AUTO_EXPAND \
+/root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_waf --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/deploy-waf.yml --parameters \
 ParameterKey=AppAccessLogBucket,ParameterValue=$AppAccessLogBucket \
 ParameterKey=ActivateSqlInjectionProtectionParam,ParameterValue=$ActivateSqlInjectionProtectionParam \
