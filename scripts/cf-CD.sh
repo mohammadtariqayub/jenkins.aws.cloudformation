@@ -12,7 +12,6 @@ CFNTemplate="deploy-cloudfront-single-domain.yml"
 Role="web"
 PublicAccess="no"
 
-
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_cf \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/deploy-cloudfront-single-domain.yml --parameters \
 ParameterKey=CloudfrontCertificate,ParameterValue=$CloudfrontCertificate \
