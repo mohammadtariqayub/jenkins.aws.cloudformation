@@ -22,8 +22,8 @@ ApiGatewayBadBotName="$Application-$BusinessOwner"
 ParameterKey=AppAccessLogBucket,ParameterValue=$AppAccessLogBucket \
 ParameterKey=ActivateSqlInjectionProtectionParam,ParameterValue=$ActivateSqlInjectionProtectionParam \
 ParameterKey=ActivateCrossSiteScriptingProtectionParam,ParameterValue=$ActivateCrossSiteScriptingProtectionParam \
-ParameterKey=ActivateHttpFloodProtectionParam,ParameterValue={$ActivateHttpFloodProtectionParam} \
-ParameterKey=ActivateScannersProbesProtectionParam,ParameterValue={$ActivateScannersProbesProtectionParam} \
+ParameterKey=ActivateHttpFloodProtectionParam,ParameterValue="$ActivateHttpFloodProtectionParam" \
+ParameterKey=ActivateScannersProbesProtectionParam,ParameterValue="$ActivateScannersProbesProtectionParam" \
 ParameterKey=ActivateReputationListsProtectionParam,ParameterValue=$ActivateReputationListsProtectionParam \
 ParameterKey=ActivateBadBotProtectionParam,ParameterValue=$ActivateBadBotProtectionParam \
 ParameterKey=EndpointType,ParameterValue=$EndpointType \
