@@ -7,8 +7,8 @@ echo "deploying Stack $StackName_waf"
 AppAccessLogBucket="$BusinessOwner-$Application-waf-logs"
 ActivateSqlInjectionProtectionParam="yes"
 ActivateCrossSiteScriptingProtectionParam="yes"
-ActivateHttpFloodProtectionParam="yes - AWS WAF rate based rule"
-ActivateScannersProbesProtectionParam="yes - AWS Lambda log parser"
+ActivateHttpFloodProtectionParam='"yes - AWS WAF rate based rule"'
+ActivateScannersProbesProtectionParam='"yes - AWS Lambda log parser"'
 ActivateReputationListsProtectionParam="yes"
 ActivateBadBotProtectionParam="yes"
 EndpointType="CloudFront"
