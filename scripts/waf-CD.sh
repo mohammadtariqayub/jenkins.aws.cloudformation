@@ -18,7 +18,7 @@ WAFBlockPeriod="240"
 ApiGatewayBadBotName="$Application-$BusinessOwner"
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_waf \
---template-body file:///root/jenkins.aws.cloudformation/cloudformation/deploy-waf-v2.3.yml --parameters \
+--template-body file:///root/jenkins.aws.cloudformation/cloudformation/deploy-waf-v2-3.yml --parameters \
 ParameterKey=AppAccessLogBucket,ParameterValue=$AppAccessLogBucket \
 ParameterKey=ActivateSqlInjectionProtectionParam,ParameterValue=$ActivateSqlInjectionProtectionParam \
 ParameterKey=ActivateCrossSiteScriptingProtectionParam,ParameterValue=$ActivateCrossSiteScriptingProtectionParam \
