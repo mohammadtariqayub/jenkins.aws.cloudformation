@@ -14,7 +14,7 @@ EndpointType="CloudFront"
 RequestThreshold="2000"
 ErrorThreshold="50"
 WAFBlockPeriod="240"
-ErrorThreApiGatewayBadBotNameshold="$Application-$BusinessOwner"
+ApiGatewayBadBotName="$Application-$BusinessOwner"
 
 /root/.local/lib/aws/bin/aws cloudformation create-stack --stack-name $StackName_waf \
 --template-body file:///root/jenkins.aws.cloudformation/cloudformation/deploy-waf-v2.3.yml --parameters \
